@@ -1,1 +1,6 @@
-/// <reference types="react-scripts" />
+export default interface WindowChain {
+    ethereum?: {
+        isMetaMask?: true
+        request?: (...args: any[]) => void
+    }
+}

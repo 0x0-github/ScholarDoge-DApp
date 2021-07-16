@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Suspense} from 'react';
 import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Header from "./header/Header";
+import {useWeb3React} from "@web3-react/core";
+import useAuth from "./hooks/useAuth";
+import Dashboard from "./dashboard/Dashboard";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const {account} = useWeb3React()
+    const {login, logout} = useAuth()
+
+    return (
+        <Suspense fallback="loading">
+                <div className="App">
+                    <Header account={account ? account : undefined} login={login} logout={logout}/>
+                    <BrowserRouter>
+                        <Switch>
+                            <Route path="/">
+                                <Dashboard account={account}/>
+                            </Route>
+                            <Route path="lottery">
+                            </Route>
+                            <Route path="team">
+                            </Route>
+                        </Switch>
+                    </BrowserRouter>
+                </div>
+        </Suspense>
+    );
 }
 
 export default App;

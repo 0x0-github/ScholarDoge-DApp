@@ -1,0 +1,25 @@
+{
+  "header": {
+    "title": "ScholarDoge",
+    "menu":  {
+      "title": "Menu",
+      "dashboard": "Dashboard",
+      "buy": "Buy $SDOGE",
+      "contract": "Contract",
+      "audit": "Audit",
+      "lottery": "Lottery",
+      "team": "Team",
+      "connect_wallet": "Connect wallet"
+    }
+  },
+  "footer": {
+
+  },
+  "dashboard": {
+    "pending_rewards": {
+      "pending": "Prending rewards: {{pending}} BNB",
+      "last_claim": "Last claim: {{last}}",
+      "next_claim": "Next claim: {{next}}"
+    }
+  }
+}

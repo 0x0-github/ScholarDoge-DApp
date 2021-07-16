@@ -1,0 +1,7 @@
+#menu-dropdown {
+    background: black;
+}
+
+.dropdown-item:focus {
+    background: #D9B35F;
+}
