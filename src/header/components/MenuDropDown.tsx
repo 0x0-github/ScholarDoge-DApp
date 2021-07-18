@@ -15,7 +15,7 @@ function MenuDropDown() {
     const tokenAddr = contracts.scholarDogeToken[chainId];
 
     return (<Dropdown>
-        <Dropdown.Toggle variant="secondary" id="menu-dropdown">
+        <Dropdown.Toggle variant="secondary" id="menu-dropdown" size={'sm'}>
             <Menu/>
         </Dropdown.Toggle>
 

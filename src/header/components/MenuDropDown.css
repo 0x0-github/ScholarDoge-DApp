@@ -1,5 +1,9 @@
 #menu-dropdown {
-    background: black;
+    background: #D9B35F;
+    color: black;
+    border: 0;
+    border-radius: 4px;
+    box-shadow: -1px -1px 2px 0 rgba(14, 14, 44, 0.4) inset;
 }
 
 .dropdown-item:focus {

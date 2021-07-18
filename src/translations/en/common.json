@@ -17,9 +17,16 @@
   },
   "dashboard": {
     "pending_rewards": {
+      "title": "Pending reward",
       "pending": "Prending rewards: {{pending}} BNB",
       "last_claim": "Last claim: {{last}}",
-      "next_claim": "Next claim: {{next}}"
+      "next_claim": "Next claim: {{next}}",
+      "withdraw": "Withdraw"
+    },
+    "collected_rewards": {
+      "title": "Collected rewards",
+      "collected": "Collected: {{collected}} BNB",
+      "history": "History"
     }
   }
 }

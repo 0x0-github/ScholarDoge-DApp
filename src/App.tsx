@@ -5,10 +5,12 @@ import Header from "./header/Header";
 import {useWeb3React} from "@web3-react/core";
 import useAuth from "./hooks/useAuth";
 import Dashboard from "./dashboard/Dashboard";
+import useEagerConnect from "./hooks/useEagerConnect";
 
 function App() {
-    const {account} = useWeb3React()
-    const {login, logout} = useAuth()
+    useEagerConnect();
+    const {account} = useWeb3React();
+    const {login, logout} = useAuth();
 
     return (
         <Suspense fallback="loading">
@@ -17,7 +19,7 @@ function App() {
                     <BrowserRouter>
                         <Switch>
                             <Route path="/">
-                                <Dashboard account={account}/>
+                                <Dashboard key={account} account={account}/>
                             </Route>
                             <Route path="lottery">
                             </Route>
