@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import getExternalLinkProps from "../../utils/getExternalLinkProps";
 import Text from "../Text/Text";
-import { LinkProps } from "./types";
+import {LinkProps} from "./types";
 
 const StyledLink = styled(Text)<LinkProps>`
   display: flex;
@@ -13,14 +13,14 @@ const StyledLink = styled(Text)<LinkProps>`
   }
 `;
 
-const Link: React.FC<LinkProps> = ({ external, ...props }) => {
-  const internalProps = external ? getExternalLinkProps() : {};
-  //return <StyledLink as="a" bold {...internalProps} {...props} />;
-  return <StyledLink/>;
+const Link: React.FC<LinkProps> = ({external, ...props}) => {
+    const internalProps = external ? getExternalLinkProps() : {};
+    //return <StyledLink as="a" bold {...internalProps} {...props} />;
+    return <StyledLink/>;
 };
 
 Link.defaultProps = {
-  color: "primary",
+    color: "secondary",
 };
 
 export default Link;

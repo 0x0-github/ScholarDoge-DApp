@@ -1,7 +1,7 @@
 {
   "header": {
     "title": "ScholarDoge",
-    "menu":  {
+    "menu": {
       "title": "Menu",
       "dashboard": "Dashboard",
       "buy": "Buy $SDOGE",
@@ -12,21 +12,45 @@
       "connect_wallet": "Connect wallet"
     }
   },
+  "auth": {
+    "connect": "Connect",
+    "connect_wallet": "Connect to a wallet",
+    "view_bscscan": "View on BscScan",
+    "logout": "Logout",
+    "your_wallet": "Your wallet"
+  },
   "footer": {
-
   },
   "dashboard": {
     "pending_rewards": {
-      "title": "Pending reward",
-      "pending": "Prending rewards: {{pending}} BNB",
+      "title": "Pending rewards",
+      "pending": "Prending: {{pending}} BNB",
       "last_claim": "Last claim: {{last}}",
       "next_claim": "Next claim: {{next}}",
-      "withdraw": "Withdraw"
+      "claim": "Claim"
     },
     "collected_rewards": {
       "title": "Collected rewards",
-      "collected": "Collected: {{collected}} BNB",
-      "history": "History"
+      "collected": "Collected: {{collected}} BNB"
+    },
+    "estimated_rewards": {
+      "title": "Estimated rewards",
+      "estimated": "Estimated: {{estimated}} BNB",
+      "hourly": "/h",
+      "daily": "/d",
+      "weekly": "/w",
+      "monthly": "/m",
+      "yearly": "/y"
+    },
+    "total_rewards": {
+      "title": "Total rewards",
+      "total": "Total: {{total}} BNB"
+    },
+    "project_wallet": {
+      "title": "{{wallet}} wallet",
+      "address": "Wallet address: {{address}}",
+      "amount_bnb": "BNB amount: {{amount}}",
+      "amount_sdoge": "$SDOGE amount: {{amount}}"
     }
   }
 }

@@ -4,32 +4,41 @@ import {Card} from "../../shared/Card";
 import {useTranslation} from "react-i18next";
 import {Button} from "../../shared/Button";
 import {timestampToFormattedDate} from "../../utils/formatTime";
+import {numberToDecimalStr} from "../../utils/formatDecimal";
+import useClaim from "../../hooks/useClaim";
 
 function PendingRewardsBlock(props: any) {
     const {t} = useTranslation('common');
-    const lastClaim = (props.info.lastClaimTime != null && props.info.lastClaimTime != 0) ?
-        timestampToFormattedDate(props.lastClaimTime) : '-';
-    const nextClaim = (props.info.nextClaim != null && props.info.nextClaim != 0) ?
-        timestampToFormattedDate(props.nextClaim) : '-';
-
+    const lastClaim = timestampToFormattedDate(props.info.lastClaimTime);
+    const nextClaim = timestampToFormattedDate(props.info.nextClaimTime);
+    const {onClaim} = useClaim();
+    const handleClaim = async () => {
+        await onClaim();
+    }
     return (
         <Card className="card">
             <h2>{t('dashboard.pending_rewards.title')}</h2>
-            <div>
+            <div className="card-content">
                 <p className="pending-rewards">
-                    {t('dashboard.pending_rewards.pending', {pending: props.withdrawableDividends ?
-                            props.info.withdrawableDividends : 0})}
+                    {t('dashboard.pending_rewards.pending', {
+                        pending: props.info.withdrawableDividends ?
+                            numberToDecimalStr(props.info.withdrawableDividends) : 0
+                    })}
                 </p>
                 <p className="last-claim-block">
                     {t('dashboard.pending_rewards.last_claim', {
-                        last: lastClaim})}
+                        last: lastClaim
+                    })}
                 </p>
                 <p className="next-claim-block">
                     {t('dashboard.pending_rewards.next_claim', {
-                        next: nextClaim})}
+                        next: nextClaim
+                    })}
                 </p>
-                <Button variant={'tertiary'} scale="sm" onClick={() => console.log('withdraw')}>
-                    {t('dashboard.pending_rewards.withdraw')}
+                <Button variant={'secondary'} scale="sm" onClick={() => {
+                    handleClaim()
+                }}>
+                    {t('dashboard.pending_rewards.claim')}
                 </Button>
             </div>
         </Card>

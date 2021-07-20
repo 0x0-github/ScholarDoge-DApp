@@ -1,0 +1,22 @@
+.card {
+    height: 100%;
+    width: 100%;
+}
+
+.card-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.selectors {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.selectors Button {
+    flex-grow: 1;
+    margin: 2px;
+}

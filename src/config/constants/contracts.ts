@@ -1,15 +1,19 @@
 const contracts = {
     scholarDogeToken: {
         56: '',
-        97: '0x79b28E61775d64Ed48E40284e7EfEce5fcF17e21',
+        97: '0xb446EADEBFfc31A66f9fB186f561a72d56eb9a63',
     },
     wbnb: {
         56: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
-        97: '0xae13d989dac2f0debff460ac112a837c89baa7cd',
+        97: '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
     },
     scholarDogeDividendTracker: {
         56: '',
-        97: '0x16aD2a106Ff72c0C94fd86394A766f06773eCF27'
+        97: '0x91C2b102A14647D46dA2fF20247c495478C3960B'
+    },
+    dexPair: {
+        56: '',
+        97: '0x6D7c678Bd66F2DF5c187129cEEc4e405d22656eA'
     },
     lottery: {
         56: '',
@@ -33,7 +37,7 @@ const contracts = {
     },
     teamTimelock: {
         56: '',
-        97: '0xF9228fB83059b61a4135745c8887885A09CE1554',
+        97: '0x4dc6de722E2F3321F36Ce53Eb00cF54D3905eF76',
     }
 };
 

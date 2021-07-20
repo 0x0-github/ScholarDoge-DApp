@@ -1,19 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { DropdownProps, PositionProps, Position } from "./types";
+import {DropdownProps, Position, PositionProps} from "./types";
 
-const getLeft = ({ position }: PositionProps) => {
-  if (position === "top-right") {
-    return "100%";
-  }
-  return "50%";
+const getLeft = ({position}: PositionProps) => {
+    if (position === "top-right") {
+        return "100%";
+    }
+    return "50%";
 };
 
-const getBottom = ({ position }: PositionProps) => {
-  if (position === "top" || position === "top-right") {
-    return "100%";
-  }
-  return "auto";
+const getBottom = ({position}: PositionProps) => {
+    if (position === "top" || position === "top-right") {
+        return "100%";
+    }
+    return "auto";
 };
 
 const DropdownContent = styled.div<{ position: Position }>`
@@ -24,13 +24,13 @@ const DropdownContent = styled.div<{ position: Position }>`
   transform: translate(-50%, 0);
   left: ${getLeft};
   bottom: ${getBottom};
-  background-color: ${({ theme }) => theme.colors.background};
-  box-shadow: ${({ theme }) => theme.shadows.level1};
+  background-color: ${({theme}) => theme.colors.background};
+  box-shadow: ${({theme}) => theme.shadows.level1};
   padding: 16px;
   max-height: 500px;
   overflow-y: auto;
-  z-index: ${({ theme }) => theme.zIndices.dropdown};
-  border-radius: ${({ theme }) => theme.radii.small};
+  z-index: ${({theme}) => theme.zIndices.dropdown};
+  border-radius: ${({theme}) => theme.radii.small};
 `;
 
 const Container = styled.div`
@@ -40,16 +40,16 @@ const Container = styled.div`
   }
 `;
 
-const Dropdown: React.FC<DropdownProps> = ({ target, position = "bottom", children }) => {
-  return (
-    <Container>
-      {target}
-      <DropdownContent position={position}>{children}</DropdownContent>
-    </Container>
-  );
+const Dropdown: React.FC<DropdownProps> = ({target, position = "bottom", children}) => {
+    return (
+        <Container>
+            {target}
+            <DropdownContent position={position}>{children}</DropdownContent>
+        </Container>
+    );
 };
 Dropdown.defaultProps = {
-  position: "bottom",
+    position: "bottom",
 };
 
 export default Dropdown;

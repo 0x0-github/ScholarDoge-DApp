@@ -1,6 +1,9 @@
-
 export const timestampToFormattedDate = (timestamp: number) => {
-    const date = new Date(timestamp * 1000);
+    try {
+        const date = new Date(timestamp * 1000);
 
-    return date.toISOString().slice(-13, -5);
+        return date.toISOString().slice(-13, -5);
+    } catch (_) {
+        return '-';
+    }
 }

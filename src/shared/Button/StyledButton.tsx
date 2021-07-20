@@ -1,23 +1,23 @@
-import styled, { DefaultTheme } from "styled-components";
-import { space, layout, variant } from "styled-system";
-import { scaleVariants, styleVariants } from "./theme";
-import { BaseButtonProps } from "./types";
+import styled, {DefaultTheme} from "styled-components";
+import {layout, space, variant} from "styled-system";
+import {scaleVariants, styleVariants} from "./theme";
+import {BaseButtonProps} from "./types";
 
 interface ThemedButtonProps extends BaseButtonProps {
-  theme: DefaultTheme;
+    theme: DefaultTheme;
 }
 
-const getDisabledStyles = ({ isLoading, theme }: ThemedButtonProps) => {
-  if (isLoading === true) {
-    return `
+const getDisabledStyles = ({isLoading, theme}: ThemedButtonProps) => {
+    if (isLoading === true) {
+        return `
       &:disabled,
       &.scholar-doge-button--disabled {
         cursor: not-allowed;
       }
     `;
-  }
+    }
 
-  return `
+    return `
     &:disabled,
     &.scholar-doge-button--disabled {
       background-color: ${theme.colors.backgroundDisabled};
@@ -35,11 +35,11 @@ const getDisabledStyles = ({ isLoading, theme }: ThemedButtonProps) => {
  * @see https://github.com/styled-components/styled-components/issues/135
  */
 interface TransientButtonProps extends ThemedButtonProps {
-  $isLoading?: boolean;
+    $isLoading?: boolean;
 }
 
-const getOpacity = ({ $isLoading = false }: TransientButtonProps) => {
-  return $isLoading ? ".5" : "1";
+const getOpacity = ({$isLoading = false}: TransientButtonProps) => {
+    return $isLoading ? ".5" : "1";
 };
 
 const StyledButton = styled.button<BaseButtonProps>`
@@ -71,10 +71,10 @@ const StyledButton = styled.button<BaseButtonProps>`
   ${variant({
     prop: "scale",
     variants: scaleVariants,
-  })}
+})}
   ${variant({
     variants: styleVariants,
-  })}
+})}
   ${layout}
   ${space}
 `;

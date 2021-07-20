@@ -1,4 +1,7 @@
-
-export const numberToTwoDecimals = (nb: number) => {
-    return nb.toFixed(2);
+export const numberToDecimalStr = (nb: number) => {
+    try {
+        return nb.toFixed(18);
+    } catch (_) {
+        return "0";
+    }
 }

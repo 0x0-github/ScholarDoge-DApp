@@ -4,7 +4,7 @@ import {RadioTheme} from "../shared/Radio/types";
 import {ToggleTheme} from "../shared/Toggle/types";
 import {TooltipTheme} from "../shared/Tooltip/types";
 import {ModalTheme} from "../shared/widgets/Modal/types";
-import {Colors, Breakpoints, MediaQueries, Spacing, Shadows, Radii, ZIndices} from "./types";
+import {Breakpoints, Colors, MediaQueries, Radii, Shadows, Spacing, ZIndices} from "./types";
 
 export interface ScholarDogeTheme {
     siteWidth: number;

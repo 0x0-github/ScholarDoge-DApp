@@ -1,18 +1,18 @@
 import {UserDividendsInfo} from "./UserDividendsInfo";
 
 export class ProjectWalletInfo {
-    private readonly _holding$SDOGE: number;
+    private readonly _holdingSDOGE: number;
     private readonly _holdingBNB: number;
     private readonly _dividendsInfo: UserDividendsInfo;
 
-    constructor(holding$SDOGE: number, holdingBNB: number, dividendsInfo: UserDividendsInfo) {
-        this._holding$SDOGE = holding$SDOGE;
+    constructor(holdingSDOGE: number, holdingBNB: number, dividendsInfo: UserDividendsInfo) {
+        this._holdingSDOGE = holdingSDOGE;
         this._holdingBNB = holdingBNB;
         this._dividendsInfo = dividendsInfo;
     }
 
-    get holding$SDOGE(): number {
-        return this._holding$SDOGE;
+    get holdingSDOGE(): number {
+        return this._holdingSDOGE;
     }
 
     get holdingBNB(): number {

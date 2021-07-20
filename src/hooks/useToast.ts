@@ -1,14 +1,14 @@
-import { useContext } from 'react';
-import { ToastsContext } from '../contexts/toasts';
+import {useContext} from 'react';
+import {ToastsContext} from '../contexts/toasts';
 
 const useToast = () => {
-  const toastContext = useContext(ToastsContext);
+    const toastContext = useContext(ToastsContext);
 
-  if (toastContext === undefined) {
-    throw new Error('Toasts context undefined');
-  }
+    if (toastContext === undefined) {
+        throw new Error('Toasts context undefined');
+    }
 
-  return toastContext;
+    return toastContext;
 }
 
 export default useToast;

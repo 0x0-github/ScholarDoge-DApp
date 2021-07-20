@@ -1,17 +1,17 @@
 import styled from "styled-components";
-import { CheckboxProps, scales } from "./types";
+import {CheckboxProps, scales} from "./types";
 
-const getScale = ({ scale }: CheckboxProps) => {
-  switch (scale) {
-    case scales.SM:
-      return "24px";
-    case scales.MD:
-    default:
-      return "32px";
-  }
+const getScale = ({scale}: CheckboxProps) => {
+    switch (scale) {
+        case scales.SM:
+            return "24px";
+        case scales.MD:
+        default:
+            return "32px";
+    }
 };
 
-const Checkbox = styled.input.attrs({ type: "checkbox" })<CheckboxProps>`
+const Checkbox = styled.input.attrs({type: "checkbox"})<CheckboxProps>`
   appearance: none;
   overflow: hidden;
   cursor: pointer;
@@ -23,8 +23,8 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })<CheckboxProps>`
   transition: background-color 0.2s ease-in-out;
   border: 0;
   border-radius: 8px;
-  background-color: ${({ theme }) => theme.colors.input};
-  box-shadow: ${({ theme }) => theme.shadows.inset};
+  background-color: ${({theme}) => theme.colors.input};
+  box-shadow: ${({theme}) => theme.shadows.inset};
 
   &:after {
     content: "";
@@ -43,16 +43,16 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })<CheckboxProps>`
   }
 
   &:hover:not(:disabled):not(:checked) {
-    box-shadow: ${({ theme }) => theme.shadows.focus};
+    box-shadow: ${({theme}) => theme.shadows.focus};
   }
 
   &:focus {
     outline: none;
-    box-shadow: ${({ theme }) => theme.shadows.focus};
+    box-shadow: ${({theme}) => theme.shadows.focus};
   }
 
   &:checked {
-    background-color: ${({ theme }) => theme.colors.success};
+    background-color: ${({theme}) => theme.colors.success};
     &:after {
       border-color: white;
     }
@@ -65,7 +65,7 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })<CheckboxProps>`
 `;
 
 Checkbox.defaultProps = {
-  scale: scales.MD,
+    scale: scales.MD,
 };
 
 export default Checkbox;

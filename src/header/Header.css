@@ -1,28 +1,28 @@
 .Header {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  background: #D9B35F;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: #D9B35F;
 }
 
 .left-block {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
-@media only screen and (min-device-width : 520px) and (max-device-width : 735px) {
-  .app-logo {
-    width: 100px;
-  }
+@media only screen and (min-device-width: 520px) and (max-device-width: 735px) {
+    .app-logo {
+        width: 100px;
+    }
 
-  h1 {
-    font-size: 18px;
-    height: 18px;
-  }
+    h1 {
+        font-size: 18px;
+        height: 18px;
+    }
 }
 
-@media only screen and (min-device-width : 300px) and (max-device-width : 520px) {
-  .app-logo {
-    display: none;
-  }
+@media only screen and (min-device-width: 300px) and (max-device-width: 520px) {
+    .app-logo {
+        display: none;
+    }
 }

@@ -1,7 +1,7 @@
-import styled, { css, keyframes } from "styled-components";
-import { space } from "styled-system";
+import styled, {css, keyframes} from "styled-components";
+import {space} from "styled-system";
 import getThemeValue from "../../utils/getThemeValue";
-import { SvgProps } from "./types";
+import {SvgProps} from "./types";
 
 const rotate = keyframes`
   from {
@@ -17,18 +17,18 @@ const spinStyle = css`
 `;
 
 const Svg = styled.svg<SvgProps>`
-  fill: ${({ theme, color }) => getThemeValue(`colors.${color}`, color)(theme)};
+  fill: ${({theme, color}) => getThemeValue(`colors.${color}`, color)(theme)};
   flex-shrink: 0;
 
-  ${({ spin }) => spin && spinStyle}
+  ${({spin}) => spin && spinStyle}
   ${space}
 `;
 
 Svg.defaultProps = {
-  color: "text",
-  width: "20px",
-  xmlns: "http://www.w3.org/2000/svg",
-  spin: false,
+    color: "text",
+    width: "20px",
+    xmlns: "http://www.w3.org/2000/svg",
+    spin: false,
 };
 
 export default Svg;

@@ -5,20 +5,17 @@ import chains from '../config/constants/chains';
 
 // Addresses
 import {
-    getAddress,
-    getScholarDogeTokenAddress,
     getScholarDogeDividendTrackerAddress,
-    getWbnbAddress,
-    getLotteryAddress,
-    getChainlinkOracleAddress,
+    getScholarDogeTokenAddress,
+    getWBNBDexPairAddress,
 } from './addressHelpers';
 
 // ABI
 import scholarDogeTokenAbi from '../config/abi/ScholarDogeToken.json'
 import scholarDogeDividendTrackerAbi from '../config/abi/ScholarDogeDividendTracker.json'
+import dexPairAbi from '../config/abi/IPancakePair.json'
 
-import {getSettings, getGasPriceInWei} from './settings'
-import contracts from "../config/constants/contracts";
+import {getGasPriceInWei, getSettings} from './settings'
 
 export const getDefaultGasPrice = () => {
     const chainId = parseInt(
@@ -47,4 +44,8 @@ export const getScholarDogeTokenContract = (web3?: Web3) => {
 
 export const getScholarDogeDividendTrackerContract = (web3?: Web3) => {
     return getContract(scholarDogeDividendTrackerAbi, getScholarDogeDividendTrackerAddress(), web3);
+}
+
+export const getWBNBDexPairContract = (web3?: Web3) => {
+    return getContract(dexPairAbi, getWBNBDexPairAddress(), web3);
 }

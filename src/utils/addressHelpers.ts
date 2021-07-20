@@ -18,6 +18,10 @@ export const getScholarDogeDividendTrackerAddress = () => {
     return getAddress(contracts.scholarDogeDividendTracker);
 }
 
+export const getWBNBDexPairAddress = () => {
+    return getAddress(contracts.dexPair);
+}
+
 export const getWbnbAddress = () => {
     return getAddress(contracts.wbnb);
 }

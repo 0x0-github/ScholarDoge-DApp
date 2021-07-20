@@ -1,10 +1,12 @@
-import { darkColors, lightColors } from "../../../theme/colors";
-import { ModalTheme } from "./types";
+import {darkColors, lightColors} from "../../../theme/colors";
+import {ModalTheme} from "./types";
 
 export const light: ModalTheme = {
-  background: lightColors.card,
+    background: lightColors.card,
+    color: lightColors.secondary,
 };
 
 export const dark: ModalTheme = {
-  background: darkColors.card,
+    background: darkColors.card,
+    color: darkColors.secondary,
 };

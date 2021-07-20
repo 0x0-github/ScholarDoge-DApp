@@ -1,8 +1,23 @@
 import React from 'react';
-import './TotalRewardsBlock.css';
+import {useTranslation} from "react-i18next";
+import {Card} from "../../shared/Card";
+import {numberToDecimalStr} from "../../utils/formatDecimal";
 
-function TotalRewardsBlock() {
+function TotalRewardsBlock(props: any) {
+    const {t} = useTranslation('common');
     return (
-        <div className="content"></div>
+        <Card className="card">
+            <h2>{t('dashboard.total_rewards.title')}</h2>
+            <div className="card-content">
+                <p className="total-rewards">
+                    {t('dashboard.total_rewards.total', {
+                        total: props.info ?
+                            numberToDecimalStr(props.info) : 0
+                    })}
+                </p>
+            </div>
+        </Card>
     );
 }
+
+export default TotalRewardsBlock;
