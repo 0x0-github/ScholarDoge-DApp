@@ -1,9 +1,9 @@
 import React from "react";
-import {Link} from "./index";
+import {H1} from "./index";
 
 export default {
-    title: "Components/Link",
-    component: Link,
+    title: "Components/H1",
+    component: H1,
     argTypes: {
         fontSize: {
             name: "fontSize",
@@ -22,17 +22,10 @@ export const Default: React.FC = () => {
     return (
         <div>
             <div>
-                <Link href="/">Default</Link>
+                <H1>Default</H1>
             </div>
             <div>
-                <Link href="/" color="text">
-                    Custom color
-                </Link>
-            </div>
-            <div>
-                <Link external href="/">
-                    External
-                </Link>
+                <H1 color="secondary">Custom color</H1>
             </div>
         </div>
     );

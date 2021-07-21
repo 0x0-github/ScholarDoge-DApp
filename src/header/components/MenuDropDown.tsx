@@ -6,20 +6,22 @@ import urls from "../../config/constants/urls";
 import {useTranslation} from 'react-i18next';
 import Menu from '@material-ui/icons/Menu';
 import chains from "../../config/constants/chains";
+import useTheme from "../../hooks/useTheme";
 
 function MenuDropDown() {
     const {t} = useTranslation('common');
+    const { theme } = useTheme();
     const chainId = parseInt((process.env.REACT_APP_CHAIN_ID != null) ? process.env.REACT_APP_CHAIN_ID
         : chains.mainnet.toString(), 10);
     // @ts-ignore
     const tokenAddr = contracts.scholarDogeToken[chainId];
 
     return (<Dropdown>
-        <Dropdown.Toggle id="menu-dropdown" size={'sm'}>
+        <Dropdown.Toggle className={theme.isDark ? 'dark-toggle' : 'light-toggle'} size={'sm'}>
             <Menu/>
         </Dropdown.Toggle>
 
-        <Dropdown.Menu>
+        <Dropdown.Menu className={theme.isDark ? 'dark-menu' : 'light-menu'}>
             <Dropdown.Item className="dropdown-item" href="/">{t('header.menu.dashboard')}</Dropdown.Item>
             <Dropdown.Item className="dropdown-item"
                            href={urls.baseDexURL + '/#/swap?outputCurrency=' + tokenAddr}>

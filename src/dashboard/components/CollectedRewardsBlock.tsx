@@ -3,13 +3,14 @@ import './CollectedRewardsBlock.css';
 import {useTranslation} from "react-i18next";
 import {Card} from "../../shared/Card";
 import {numberToDecimalStr} from "../../utils/formatDecimal";
+import {H2} from "../../shared/H2";
 
 function CollectedRewardsBlock(props: any) {
     const {t} = useTranslation('common');
 
     return (
         <Card className="card">
-            <h2>{t('dashboard.collected_rewards.title')}</h2>
+            <H2>{t('dashboard.collected_rewards.title')}</H2>
             <div className="card-content">
                 <p className="collected-rewards">
                     {t('dashboard.collected_rewards.collected', {

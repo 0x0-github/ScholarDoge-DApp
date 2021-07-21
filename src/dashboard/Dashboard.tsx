@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, HTMLAttributes} from 'react';
 import './Dashboard.css';
 import {
     getEstimatedRewards,
@@ -16,6 +16,7 @@ import {Grid} from "@material-ui/core";
 import EstimatedRewardsBlock, { HOUR} from "./components/EstimatedRewardsBlock";
 import TotalRewardsBlock from "./components/TotalRewardsBlock";
 import ProjectWalletBlock from "./components/ProjectWalletBlock";
+import styled from "styled-components";
 
 class Dashboard extends Component<any, any> {
     readonly PENDING_PREFIX = 'pend_';
@@ -65,6 +66,12 @@ class Dashboard extends Component<any, any> {
         });
     }
 
+    componentWillUnmount() {
+        this.setState = (state,callback) => {
+            return;
+        };
+    }
+
     async handleDurationChange(value: number) {
         // @ts-ignore
         if (this.props.account) {
@@ -86,7 +93,7 @@ class Dashboard extends Component<any, any> {
         }
 
         return (
-            <div className="content">
+            <StyledDashboard className="content">
                 <Grid container spacing={3}>
                     <Grid item xs={4}>
                         <PendingRewardsBlock key={`${this.PENDING_PREFIX}${userInfo.address}`} info={userInfo}/>
@@ -122,9 +129,13 @@ class Dashboard extends Component<any, any> {
                                             info={this.state.teamTimelockInfo} title="Team timelock"/>
                     </Grid>
                 </Grid>
-            </div>
+            </StyledDashboard>
         );
     }
 }
+
+const StyledDashboard = styled.div<HTMLAttributes<HTMLDivElement>>`
+  background-color: ${({theme}) => theme.colors.secondary};
+  `;
 
 export default Dashboard;

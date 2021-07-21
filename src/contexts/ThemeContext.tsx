@@ -4,7 +4,7 @@ import {dark, light} from '../theme';
 
 const CACHE_KEY = 'IS_DARK';
 
-const ThemeContext = React.createContext({isDark: null, toggleTheme: () => null});
+const ThemeContext = React.createContext({isDark: false, toggleTheme: () => null});
 
 const ThemeContextProvider = ({children}: { children: any }) => {
     const [isDark, setIsDark] = useState(() => {

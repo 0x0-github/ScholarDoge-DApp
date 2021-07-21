@@ -51,6 +51,7 @@ export type Colors = {
     textSubtle: string;
     borderColor: string;
     card: string;
+    header: string;
 
     // Gradients
     gradients: Gradients;

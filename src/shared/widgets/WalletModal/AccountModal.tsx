@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../../Button/Button";
 import Text from "../../Text/Text";
-import LinkExternal from "../../Link/LinkExternal";
+import Link from "../../Link/Link";
 import Flex from "../../Box/Flex";
 import {Modal} from "../Modal";
 import CopyToClipboard from "./CopyToClipboard";
@@ -27,9 +27,9 @@ const AccountModal: React.FC<Props> = ({account, logout, onDismiss = () => null}
                 {account}
             </Text>
             <Flex mb="32px">
-                <LinkExternal small href={`https://bscscan.com/address/${account}`} mr="16px">
+                <Link small href={`https://bscscan.com/address/${account}`} mr="16px">
                     {t('auth.view_bscscan')}
-                </LinkExternal>
+                </Link>
                 <CopyToClipboard toCopy={account}>Copy Address</CopyToClipboard>
             </Flex>
             <Flex justifyContent="center">

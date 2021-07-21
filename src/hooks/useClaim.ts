@@ -9,7 +9,7 @@ const useClaim = () => {
     const handleClaim = useCallback(
         async () => {
             if (account) {
-                const txHash = await scholarDoge.methods.claim().send({from: account});
+                await scholarDoge.methods.claim().send({from: account});
             }
         },
         [account, scholarDoge.methods],

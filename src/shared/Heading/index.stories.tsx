@@ -24,7 +24,7 @@ export const tags: React.FC = () => {
         <div>
             <Heading>Default</Heading>
             <Heading as="h1">Tag h1</Heading>
-            <Heading as="h2">Tag h2</Heading>
+            <Heading as="h2">Tag H2</Heading>
             <Heading as="h3">Tag h3</Heading>
             <Heading as="h4">Tag h4</Heading>
             <Heading as="h5">Tag h5</Heading>

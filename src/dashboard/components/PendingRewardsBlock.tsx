@@ -6,6 +6,7 @@ import {Button} from "../../shared/Button";
 import {timestampToFormattedDate} from "../../utils/formatTime";
 import {numberToDecimalStr} from "../../utils/formatDecimal";
 import useClaim from "../../hooks/useClaim";
+import {H2} from "../../shared/H2";
 
 function PendingRewardsBlock(props: any) {
     const {t} = useTranslation('common');
@@ -17,7 +18,7 @@ function PendingRewardsBlock(props: any) {
     }
     return (
         <Card className="card">
-            <h2>{t('dashboard.pending_rewards.title')}</h2>
+            <H2>{t('dashboard.pending_rewards.title')}</H2>
             <div className="card-content">
                 <p className="pending-rewards">
                     {t('dashboard.pending_rewards.pending', {

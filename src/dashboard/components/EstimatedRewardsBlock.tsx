@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import {Card} from "../../shared/Card";
 import {numberToDecimalStr} from "../../utils/formatDecimal";
 import {Button} from "../../shared/Button";
+import {H2} from "../../shared/H2";
 
 export const HOUR = 3600;
 export const DAY = 86400;
@@ -16,7 +17,7 @@ function EstimatedRewardsBlock(props: any) {
 
     return (
         <Card className="card">
-            <h2>{t('dashboard.estimated_rewards.title')}</h2>
+            <H2>{t('dashboard.estimated_rewards.title')}</H2>
             <div className="card-content">
                 <p className="estimated-rewards">
                     {t('dashboard.estimated_rewards.estimated', {
