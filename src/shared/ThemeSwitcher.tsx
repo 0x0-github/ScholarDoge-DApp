@@ -14,9 +14,9 @@ interface Props {
 }
 
 const ThemeSwitcher: React.FC<Props> = ({ isDark, toggleTheme }) => (
-  <Button variant="text" onClick={() => toggleTheme(!isDark)}>
+  <Button padding={0} variant="text" onClick={() => toggleTheme(!isDark)}>
     {/* alignItems center is a Safari fix */}
-    <Flex alignItems="center">
+    <Flex alignItems="flex-start">
       <SunIcon color={isDark ? "textDisabled" : "text"} width="24px" />
       <Text mx="4px">
         /

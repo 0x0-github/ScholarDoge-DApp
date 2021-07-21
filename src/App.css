@@ -1,3 +1,18 @@
 .App {
     text-align: center;
 }
+
+@media only screen and (min-device-width: 300px) and (max-device-width: 800px) {
+    h2 {
+        font-size: 17px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    #login-buttons > * {
+        font-size: 11px;
+        padding: 8px;
+    }
+}

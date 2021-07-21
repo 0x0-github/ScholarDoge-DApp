@@ -15,7 +15,7 @@ const UserBlock: React.FC<Props> = ({account, login, logout}) => {
     const accountEllipsis = account ? `${account.substring(0, 4)}...${account.substring(account.length - 4)}` : null;
 
     return (
-        <div>
+        <div id="login-buttons">
             {account ? (
                 <Button
                     scale="sm"
