@@ -25,7 +25,7 @@ function ProjectWalletBlock(props: any) {
                 <p>
                     {t('dashboard.project_wallet.amount_sdoge', {
                         amount: props.info.holdingSDOGE ?
-                            numberToDecimalStr(props.info.holdingSDOGE) : 0
+                            numberToDecimalStr(props.info.holdingSDOGE, 0) : 0
                     })}
                 </p>
             </div>

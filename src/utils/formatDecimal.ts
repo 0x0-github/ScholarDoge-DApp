@@ -1,6 +1,6 @@
-export const numberToDecimalStr = (nb: number) => {
+export const numberToDecimalStr = (nb: number, decimals= 18) => {
     try {
-        return nb.toFixed(18);
+        return nb.toFixed(decimals);
     } catch (_) {
         return "0";
     }
