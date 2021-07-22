@@ -1,5 +1,5 @@
 import React, {Component, HTMLAttributes} from 'react';
-import './Dashboard.css';
+import './Rewards.css';
 import {
     getEstimatedRewards,
     getFoundationWalletInfo,
@@ -18,7 +18,7 @@ import TotalRewardsBlock from "./components/TotalRewardsBlock";
 import ProjectWalletBlock from "./components/ProjectWalletBlock";
 import styled from "styled-components";
 
-class Dashboard extends Component<any, any> {
+class Rewards extends Component<any, any> {
     readonly PENDING_PREFIX = 'pend_';
     readonly COLLECTED_PREFIX = 'collec_';
     readonly ESTIMATED_PREFIX = 'estim_';
@@ -93,7 +93,7 @@ class Dashboard extends Component<any, any> {
         }
 
         return (
-            <StyledDashboard className="content">
+            <StyledRewards className="content">
                 <Grid container spacing={1}>
                     <Grid item xs={4}>
                         <PendingRewardsBlock key={`${this.PENDING_PREFIX}${userInfo.address}`} info={userInfo}/>
@@ -129,13 +129,13 @@ class Dashboard extends Component<any, any> {
                                             info={this.state.teamTimelockInfo} title="Team timelock"/>
                     </Grid>
                 </Grid>
-            </StyledDashboard>
+            </StyledRewards>
         );
     }
 }
 
-const StyledDashboard = styled.div<HTMLAttributes<HTMLDivElement>>`
+const StyledRewards = styled.div<HTMLAttributes<HTMLDivElement>>`
   background-color: ${({theme}) => theme.colors.secondary};
-  `;
+`;
 
-export default Dashboard;
+export default Rewards;

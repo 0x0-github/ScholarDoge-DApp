@@ -26,7 +26,7 @@ const AccountModal: React.FC<Props> = ({account, logout, onDismiss = () => null}
             >
                 {account}
             </Text>
-            <Flex mb="32px">
+            <Flex mb="32px" justifyContent="space-between">
                 <Link small href={`https://bscscan.com/address/${account}`} mr="16px">
                     {t('auth.view_bscscan')}
                 </Link>

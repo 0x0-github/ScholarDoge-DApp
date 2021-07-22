@@ -18,28 +18,28 @@ function PendingRewardsBlock(props: any) {
     }
     return (
         <Card className="card">
-            <H2>{t('dashboard.pending_rewards.title')}</H2>
+            <H2>{t('rewards.pending_rewards.title')}</H2>
             <div className="card-content">
                 <p className="pending-rewards">
-                    {t('dashboard.pending_rewards.pending', {
+                    {t('rewards.pending_rewards.pending', {
                         pending: props.info.withdrawableDividends ?
                             numberToDecimalStr(props.info.withdrawableDividends) : 0
                     })}
                 </p>
                 <p className="last-claim-block">
-                    {t('dashboard.pending_rewards.last_claim', {
+                    {t('rewards.pending_rewards.last_claim', {
                         last: lastClaim
                     })}
                 </p>
                 <p className="next-claim-block">
-                    {t('dashboard.pending_rewards.next_claim', {
+                    {t('rewards.pending_rewards.next_claim', {
                         next: nextClaim
                     })}
                 </p>
                 <Button variant={'secondary'} scale="sm" onClick={() => {
                     handleClaim()
                 }}>
-                    {t('dashboard.pending_rewards.claim')}
+                    {t('rewards.pending_rewards.claim')}
                 </Button>
             </div>
         </Card>

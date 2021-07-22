@@ -2,8 +2,8 @@
   "header": {
     "title": "ScholarDoge",
     "menu": {
-      "title": "Menu",
-      "dashboard": "Dashboard",
+      "tokenomics": "Tokenomics",
+      "rewards": "Rewards",
       "buy": "Buy $SDOGE",
       "contract": "Contract",
       "audit": "Audit",
@@ -21,7 +21,7 @@
   },
   "footer": {
   },
-  "dashboard": {
+  "rewards": {
     "pending_rewards": {
       "title": "Pending rewards",
       "pending": "Prending: {{pending}} BNB",
@@ -44,6 +44,7 @@
     },
     "total_rewards": {
       "title": "Total rewards",
+      "holders": "Holders: {{holders}}",
       "total": "Total: {{total}} BNB"
     },
     "project_wallet": {
@@ -51,6 +52,35 @@
       "address": "Wallet address: {{address}}",
       "amount_bnb": "BNB amount: {{amount}}",
       "amount_sdoge": "$SDOGE amount: {{amount}}"
+    }
+  },
+  "tokenomics": {
+    "token_features": {
+      "title": "Token features",
+      "rewards": "Rewards: {{value}}%",
+      "lp": "Liquidity pool: {{value}}%",
+      "treasury": "Donations: {{value}}%",
+      "burn": "Burn: {{value}}%"
+    },
+    "token_stats": {
+      "title": "Token stats",
+      "total_supply": "Total supply: {{value}} $SDOGE",
+      "burned": "Burned: {{value}} $SDOGE",
+      "added_sdoge_lp": "Added $SDOGE lp: {{value}} $SDOGE",
+      "added_bnb_lp": "Added BNB lp: {{value}} BNB",
+      "collected": "Collected: {{value}} $SDOGE"
+    },
+    "token_constraints": {
+      "title": "Token constraints",
+      "max_hold": "Max hold: {{value}} $SDOGE",
+      "max_sell_tx": "Max sell /tx: {{value}} $SDOGE",
+      "claim_time_h": "BNB claim time: {{value}}h"
+    },
+    "token_dependencies": {
+      "title": "Token dependencies",
+      "router": "Dex router: {{value}}",
+      "pair": "Dex pair: {{value}}",
+      "dividend_tracker": "Dividend tracker: {{value}}"
     }
   }
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import './ProjectWalletBlock.css';
 import {useTranslation} from "react-i18next";
 import {Card} from "../../shared/Card";
 import {numberToDecimalStr} from "../../utils/formatDecimal";
@@ -15,7 +14,7 @@ function ProjectWalletBlock(props: any) {
 
     return (
         <Card className="card">
-            <H2>{t('dashboard.project_wallet.title', {wallet: props.title})}</H2>
+            <H2>{t('rewards.project_wallet.title', {wallet: props.title})}</H2>
             <div className="card-content">
                 {
                     props.info.dividendsInfo ?
@@ -24,7 +23,7 @@ function ProjectWalletBlock(props: any) {
                                 <Link href={
                                     // @ts-ignore
                                     `${urls.baseBscScanURL[chainId]}/address/${props.info.dividendsInfo.account}`}>
-                                    {t('dashboard.project_wallet.address', {
+                                    {t('rewards.project_wallet.address', {
                                         address: props.info.dividendsInfo.account
                                     })}
                                 </Link>
@@ -32,7 +31,7 @@ function ProjectWalletBlock(props: any) {
                         ) :
                         (
                             <p>
-                                {t('dashboard.project_wallet.address', {
+                                {t('rewards.project_wallet.address', {
                                     address: '-'
                                 })}
                             </p>
@@ -40,13 +39,13 @@ function ProjectWalletBlock(props: any) {
                 }
 
                 <p>
-                    {t('dashboard.project_wallet.amount_bnb', {
+                    {t('rewards.project_wallet.amount_bnb', {
                         amount: props.info.holdingBNB ?
                             numberToDecimalStr(props.info.holdingBNB) : 0
                     })}
                 </p>
                 <p>
-                    {t('dashboard.project_wallet.amount_sdoge', {
+                    {t('rewards.project_wallet.amount_sdoge', {
                         amount: props.info.holdingSDOGE ?
                             numberToDecimalStr(props.info.holdingSDOGE, 0) : 0
                     })}

@@ -17,10 +17,10 @@ function EstimatedRewardsBlock(props: any) {
 
     return (
         <Card className="card">
-            <H2>{t('dashboard.estimated_rewards.title')}</H2>
+            <H2>{t('rewards.estimated_rewards.title')}</H2>
             <div className="card-content">
                 <p className="estimated-rewards">
-                    {t('dashboard.estimated_rewards.estimated', {
+                    {t('rewards.estimated_rewards.estimated', {
                         estimated: props.info ?
                             numberToDecimalStr(props.info) : 0
                     })}
@@ -28,23 +28,23 @@ function EstimatedRewardsBlock(props: any) {
                 <div className="selectors">
                     <Button variant="secondary" scale="sm" onClick={() => props.durationChanged(HOUR)}
                             disabled={props.interval === HOUR}>
-                        {t('dashboard.estimated_rewards.hourly')}
+                        {t('rewards.estimated_rewards.hourly')}
                     </Button>
                     <Button variant="secondary" scale="sm" onClick={() => props.durationChanged(DAY)}
                             disabled={props.interval === DAY}>
-                        {t('dashboard.estimated_rewards.daily')}
+                        {t('rewards.estimated_rewards.daily')}
                     </Button>
                     <Button variant="secondary" scale="sm" onClick={() => props.durationChanged(WEEK)}
                         disabled={props.interval === WEEK}>
-                        {t('dashboard.estimated_rewards.weekly')}
+                        {t('rewards.estimated_rewards.weekly')}
                     </Button>
                     <Button variant="secondary" scale="sm" onClick={() => props.durationChanged(MONTH)}
                             disabled={props.interval === MONTH}>
-                        {t('dashboard.estimated_rewards.monthly')}
+                        {t('rewards.estimated_rewards.monthly')}
                     </Button>
                     <Button variant="secondary" scale="sm" onClick={() => props.durationChanged(YEAR)}
                             disabled={props.interval === YEAR}>
-                        {t('dashboard.estimated_rewards.yearly')}
+                        {t('rewards.estimated_rewards.yearly')}
                     </Button>
                 </div>
             </div>

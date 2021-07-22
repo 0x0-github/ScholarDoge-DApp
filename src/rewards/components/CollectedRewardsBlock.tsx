@@ -10,10 +10,10 @@ function CollectedRewardsBlock(props: any) {
 
     return (
         <Card className="card">
-            <H2>{t('dashboard.collected_rewards.title')}</H2>
+            <H2>{t('rewards.collected_rewards.title')}</H2>
             <div className="card-content">
                 <p className="collected-rewards">
-                    {t('dashboard.collected_rewards.collected', {
+                    {t('rewards.collected_rewards.collected', {
                         collected: props.info.totalDividends ?
                             numberToDecimalStr(props.info.totalDividends) : 0
                     })}

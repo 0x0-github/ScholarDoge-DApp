@@ -25,7 +25,8 @@ function MenuDropDown() {
         </StyledDropDownButton>
 
         <Dropdown.Menu className={theme.isDark ? 'dark-menu' : 'light-menu'}>
-            <Dropdown.Item className="dropdown-item" href="/">{t('header.menu.dashboard')}</Dropdown.Item>
+            <Dropdown.Item className="dropdown-item" href="/tokenomics">{t('header.menu.tokenomics')}</Dropdown.Item>
+            <Dropdown.Item className="dropdown-item" href="/rewards">{t('header.menu.rewards')}</Dropdown.Item>
             <Dropdown.Item className="dropdown-item"
                            href={urls.baseDexURL + '/#/swap?outputCurrency=' + tokenAddr}>
                 {t('header.menu.buy')}
