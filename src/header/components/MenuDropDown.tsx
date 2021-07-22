@@ -7,6 +7,7 @@ import {useTranslation} from 'react-i18next';
 import Menu from '@material-ui/icons/Menu';
 import chains from "../../config/constants/chains";
 import useTheme from "../../hooks/useTheme";
+import styled from "styled-components";
 
 function MenuDropDown() {
     const {t} = useTranslation('common');
@@ -17,9 +18,11 @@ function MenuDropDown() {
     const tokenAddr = contracts.scholarDogeToken[chainId];
 
     return (<Dropdown>
-        <Dropdown.Toggle className={theme.isDark ? 'dark-toggle' : 'light-toggle'} size={'sm'}>
-            <Menu/>
-        </Dropdown.Toggle>
+        <StyledDropDownButton>
+            <Dropdown.Toggle className={theme.isDark ? 'dark-toggle' : 'light-toggle'} size={'sm'}>
+                <Menu/>
+            </Dropdown.Toggle>
+        </StyledDropDownButton>
 
         <Dropdown.Menu className={theme.isDark ? 'dark-menu' : 'light-menu'}>
             <Dropdown.Item className="dropdown-item" href="/">{t('header.menu.dashboard')}</Dropdown.Item>
@@ -37,5 +40,15 @@ function MenuDropDown() {
         </Dropdown.Menu>
     </Dropdown>);
 }
+
+const StyledDropDownButton = styled.div`
+  .light-toggle:hover, .light-toggle:checked, .light-toggle:focus, .light-toggle:active, .dark-toggle:hover,
+  .dark-toggle:checked, .dark-toggle:focus, .dark-toggle:active {
+    background: ${({theme}) => theme.colors.secondary} !important;
+    color: ${({theme}) => theme.colors.primary} !important;
+    box-shadow: none !important;
+    opacity: 0.65;
+}
+`;
 
 export default MenuDropDown;

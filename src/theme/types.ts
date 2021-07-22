@@ -35,6 +35,7 @@ export type Colors = {
     primary: string;
     primaryBright: string;
     primaryDark: string;
+    accent: string;
     secondary: string;
     tertiary: string;
     success: string;
