@@ -94,7 +94,7 @@ class Dashboard extends Component<any, any> {
 
         return (
             <StyledDashboard className="content">
-                <Grid container spacing={3}>
+                <Grid container spacing={1}>
                     <Grid item xs={4}>
                         <PendingRewardsBlock key={`${this.PENDING_PREFIX}${userInfo.address}`} info={userInfo}/>
                     </Grid>
