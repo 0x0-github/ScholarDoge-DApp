@@ -137,3 +137,9 @@ export const getTokenDependenciesInfo = async () => {
 
     return new TokenDependenciesInfo(router, pair, dividendTracker);
 }
+
+export const getScholarDogeBalance = async (account: string) => {
+    const scholarDogeToken = getScholarDogeTokenContract(web3);
+
+    return Number.parseInt(await scholarDogeToken.methods.balanceOf(account).call()) / 10 ** 9;
+}

@@ -19,10 +19,16 @@ function EstimatedRewardsBlock(props: any) {
         <Card className="card">
             <H2>{t('rewards.estimated_rewards.title')}</H2>
             <div className="card-content">
+                <p>
+                    {t('rewards.estimated_rewards.balance', {
+                        balance: props.info.balance ?
+                            props.info.balance : 0
+                    })}
+                </p>
                 <p className="estimated-rewards">
                     {t('rewards.estimated_rewards.estimated', {
-                        estimated: props.info ?
-                            numberToDecimalStr(props.info) : 0
+                        estimated: props.info.estimated ?
+                            numberToDecimalStr(props.info.estimated) : 0
                     })}
                 </p>
                 <div className="selectors">

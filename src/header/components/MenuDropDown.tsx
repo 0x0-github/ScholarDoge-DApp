@@ -45,8 +45,8 @@ function MenuDropDown() {
 const StyledDropDownButton = styled.div`
   .light-toggle:hover, .light-toggle:checked, .light-toggle:focus, .light-toggle:active, .dark-toggle:hover,
   .dark-toggle:checked, .dark-toggle:focus, .dark-toggle:active {
-    background: ${({theme}) => theme.colors.secondary} !important;
-    color: ${({theme}) => theme.colors.primary} !important;
+    background: ${({theme}) => theme.colors.tertiary} !important;
+    color: ${({theme}) => theme.colors.accent} !important;
     box-shadow: none !important;
     opacity: 0.65;
 }

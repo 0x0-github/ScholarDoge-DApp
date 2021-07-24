@@ -1,12 +1,12 @@
 .light-toggle {
-    background: white;
-    color: #D9B35F;
+    background: #EFF4F5;
+    color: #715B2F;
     border: 0;
     border-radius: 4px;
 }
 
 .dark-toggle {
-    background: black;
+    background: #353547;
     color: #D9B35F;
     border: 0;
     border-radius: 4px;

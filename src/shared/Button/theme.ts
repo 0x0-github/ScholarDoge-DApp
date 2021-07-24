@@ -30,7 +30,7 @@ export const styleVariants = {
     [variants.SECONDARY]: {
         backgroundColor: "tertiary",
         boxShadow: "none",
-        color: "primary",
+        color: "accent",
     },
     [variants.TERTIARY]: {
         // TODO

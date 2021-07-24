@@ -4,7 +4,9 @@ import {
     getEstimatedRewards,
     getFoundationWalletInfo,
     getMarketingWalletInfo,
-    getTeamTimelockWalletInfo, getTotalRewards,
+    getScholarDogeBalance,
+    getTeamTimelockWalletInfo,
+    getTotalRewards,
     getTreasuryWalletInfo,
     getUserDividendsInfo
 } from "../utils/callHelpers";
@@ -13,9 +15,10 @@ import {UserDividendsInfo} from "../models/UserDividendsInfo";
 import {ProjectWalletInfo} from "../models/ProjectWalletInfo";
 import CollectedRewardsBlock from "./components/CollectedRewardsBlock";
 import {Grid} from "@material-ui/core";
-import EstimatedRewardsBlock, { HOUR} from "./components/EstimatedRewardsBlock";
+import EstimatedRewardsBlock, {HOUR} from "./components/EstimatedRewardsBlock";
 import TotalRewardsBlock from "./components/TotalRewardsBlock";
 import ProjectWalletBlock from "./components/ProjectWalletBlock";
+import {Spinner} from "../shared/Spinner";
 import styled from "styled-components";
 
 class Rewards extends Component<any, any> {
@@ -32,21 +35,25 @@ class Rewards extends Component<any, any> {
             interval: HOUR,
             userDividendInfo: UserDividendsInfo,
             totalRewards: Number,
+            userBalance: Number,
             userEstimatedRewards: Number,
             treasuryInfo: ProjectWalletInfo,
             marketingInfo: ProjectWalletInfo,
             foundationInfo: ProjectWalletInfo,
-            teamTimelockInfo: ProjectWalletInfo
+            teamTimelockInfo: ProjectWalletInfo,
+            loading: true
         };
     }
 
     async componentDidMount() {
         let userInfo;
         let estimatedRewards = 0;
+        let userBalance = 0;
 
         if (this.props.account) {
             userInfo = await getUserDividendsInfo(this.props.account);
             estimatedRewards = await getEstimatedRewards(this.props.account);
+            userBalance = await getScholarDogeBalance(this.props.account);
         }
 
         const totalRewards = await getTotalRewards();
@@ -58,16 +65,18 @@ class Rewards extends Component<any, any> {
         this.setState({
             userDividendInfo: userInfo,
             totalRewards: totalRewards,
+            userBalance: userBalance,
             estimatedRewards: estimatedRewards,
             treasuryInfo: treasuryInfo,
             marketingInfo: marketingInfo,
             foundationInfo: foundationInfo,
-            teamTimelockInfo: teamTimelockInfo
+            teamTimelockInfo: teamTimelockInfo,
+            loading: false
         });
     }
 
     componentWillUnmount() {
-        this.setState = (state,callback) => {
+        this.setState = (state, callback) => {
             return;
         };
     }
@@ -85,6 +94,7 @@ class Rewards extends Component<any, any> {
 
     render() {
         let userInfo;
+        let content;
 
         if (this.state.userDividendInfo == null) {
             userInfo = new UserDividendsInfo('', 0, 0, 0, 0, 0, 0);
@@ -92,43 +102,51 @@ class Rewards extends Component<any, any> {
             userInfo = this.state.userDividendInfo;
         }
 
+        this.state.loading ?
+            content = <Spinner/>
+            :
+            content = <Grid container spacing={1}>
+                <Grid item xs={4}>
+                    <PendingRewardsBlock key={`${this.PENDING_PREFIX}${userInfo.address}`} info={userInfo}/>
+                </Grid>
+                <Grid item xs={4}>
+                    <EstimatedRewardsBlock key={`${this.ESTIMATED_PREFIX}${userInfo.address}`}
+                                           durationChanged={this.handleDurationChange.bind(this)}
+                                           info={{
+                                               balance: this.state.userBalance,
+                                               estimated: this.state.estimatedRewards
+                                           }}
+                                           interval={this.state.interval}
+                                           account={this.props.account}/>
+                </Grid>
+                <Grid item xs={4}>
+                    <CollectedRewardsBlock key={`${this.COLLECTED_PREFIX}${userInfo.address}`} info={userInfo}/>
+                </Grid>
+                <Grid item xs={12}>
+                    <TotalRewardsBlock key={`${this.TOTAL_PREFIX}${userInfo.address}`}
+                                       info={this.state.totalRewards}/>
+                </Grid>
+                <Grid item xs={12}>
+                    <ProjectWalletBlock key={`${this.WALLET_PREFIX}treasury`}
+                                        info={this.state.treasuryInfo} title="Treasury"/>
+                </Grid>
+                <Grid item xs={12}>
+                    <ProjectWalletBlock key={`${this.WALLET_PREFIX}marketing`}
+                                        info={this.state.marketingInfo} title="Marketing"/>
+                </Grid>
+                <Grid item xs={12}>
+                    <ProjectWalletBlock key={`${this.WALLET_PREFIX}foundation`}
+                                        info={this.state.foundationInfo} title="Foundation"/>
+                </Grid>
+                <Grid item xs={12}>
+                    <ProjectWalletBlock key={`${this.WALLET_PREFIX}teamTimelock`}
+                                        info={this.state.teamTimelockInfo} title="Team timelock"/>
+                </Grid>
+            </Grid>
+
         return (
             <StyledRewards className="content">
-                <Grid container spacing={1}>
-                    <Grid item xs={4}>
-                        <PendingRewardsBlock key={`${this.PENDING_PREFIX}${userInfo.address}`} info={userInfo}/>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <EstimatedRewardsBlock key={`${this.ESTIMATED_PREFIX}${userInfo.address}`}
-                                               durationChanged={this.handleDurationChange.bind(this)}
-                                               info={this.state.estimatedRewards}
-                                               interval={this.state.interval}
-                                               account={this.props.account}/>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <CollectedRewardsBlock key={`${this.COLLECTED_PREFIX}${userInfo.address}`} info={userInfo}/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TotalRewardsBlock key={`${this.TOTAL_PREFIX}${userInfo.address}`}
-                                           info={this.state.totalRewards}/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <ProjectWalletBlock key={`${this.WALLET_PREFIX}treasury`}
-                                            info={this.state.treasuryInfo} title="Treasury"/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <ProjectWalletBlock key={`${this.WALLET_PREFIX}marketing`}
-                                            info={this.state.marketingInfo} title="Marketing"/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <ProjectWalletBlock key={`${this.WALLET_PREFIX}foundation`}
-                                            info={this.state.foundationInfo} title="Foundation"/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <ProjectWalletBlock key={`${this.WALLET_PREFIX}teamTimelock`}
-                                            info={this.state.teamTimelockInfo} title="Team timelock"/>
-                    </Grid>
-                </Grid>
+                {content}
             </StyledRewards>
         );
     }

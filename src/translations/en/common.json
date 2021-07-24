@@ -35,6 +35,7 @@
     },
     "estimated_rewards": {
       "title": "Estimated rewards",
+      "balance": "Balance: {{balance}} $SDOGE",
       "estimated": "Estimated: {{estimated}} BNB",
       "hourly": "/h",
       "daily": "/d",
