@@ -8,6 +8,7 @@ import Menu from '@material-ui/icons/Menu';
 import chains from "../../config/constants/chains";
 import useTheme from "../../hooks/useTheme";
 import styled from "styled-components";
+import useTestClaim from "../../hooks/useTestClaim";
 
 function MenuDropDown() {
     const {t} = useTranslation('common');
@@ -16,6 +17,10 @@ function MenuDropDown() {
         : chains.mainnet.toString(), 10);
     // @ts-ignore
     const tokenAddr = contracts.scholarDogeToken[chainId];
+    const {onTestClaim} = useTestClaim();
+    const handleTestClaim = async () => {
+        await onTestClaim();
+    }
 
     return (<Dropdown>
         <StyledDropDownButton>
@@ -38,6 +43,9 @@ function MenuDropDown() {
             <Dropdown.Item className="dropdown-item" href="#audit" disabled>{t('header.menu.audit')}</Dropdown.Item>
             <Dropdown.Item className="dropdown-item" href="/lottery" disabled>{t('header.menu.lottery')}</Dropdown.Item>
             <Dropdown.Item className="dropdown-item" href="/team" disabled>{t('header.menu.team')}</Dropdown.Item>
+            <Dropdown.Item className="dropdown-item" onClick={() => {
+                handleTestClaim()
+            }}>{t('header.menu.claim_testnet')}</Dropdown.Item>
         </Dropdown.Menu>
     </Dropdown>);
 }

@@ -5,12 +5,17 @@ import {Card} from "../../shared/Card";
 import {numberToDecimalStr} from "../../utils/formatDecimal";
 import {Button} from "../../shared/Button";
 import {H2} from "../../shared/H2";
+import {H3} from "../../shared/H3";
 
 export const HOUR = 3600;
 export const DAY = 86400;
 export const WEEK = 604800;
 export const MONTH = 2592000;
 export const YEAR = 31536000;
+
+export const LOW_VOL = 100000;
+export const MID_VOL = 500000;
+export const HIGH_VOL = 2000000;
 
 function EstimatedRewardsBlock(props: any) {
     const {t} = useTranslation('common');
@@ -31,6 +36,9 @@ function EstimatedRewardsBlock(props: any) {
                             numberToDecimalStr(props.info.estimated) : 0
                     })}
                 </p>
+
+                <H3>{t('rewards.estimated_rewards.interval')}</H3>
+
                 <div className="selectors">
                     <Button variant="secondary" scale="sm" onClick={() => props.durationChanged(HOUR)}
                             disabled={props.interval === HOUR}>
@@ -51,6 +59,23 @@ function EstimatedRewardsBlock(props: any) {
                     <Button variant="secondary" scale="sm" onClick={() => props.durationChanged(YEAR)}
                             disabled={props.interval === YEAR}>
                         {t('rewards.estimated_rewards.yearly')}
+                    </Button>
+                </div>
+
+                <H3>{t('rewards.estimated_rewards.daily_volume')}</H3>
+
+                <div className="selectors">
+                    <Button variant="secondary" scale="sm" onClick={() => props.volumeChanged(LOW_VOL)}
+                            disabled={props.dailyVolume === LOW_VOL}>
+                        {t('rewards.estimated_rewards.low_vol')}
+                    </Button>
+                    <Button variant="secondary" scale="sm" onClick={() => props.volumeChanged(MID_VOL)}
+                            disabled={props.dailyVolume === MID_VOL}>
+                        {t('rewards.estimated_rewards.mid_vol')}
+                    </Button>
+                    <Button variant="secondary" scale="sm" onClick={() => props.volumeChanged(HIGH_VOL)}
+                            disabled={props.dailyVolume === HIGH_VOL}>
+                        {t('rewards.estimated_rewards.high_vol')}
                     </Button>
                 </div>
             </div>

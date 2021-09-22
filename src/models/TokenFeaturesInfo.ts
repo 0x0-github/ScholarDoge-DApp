@@ -1,36 +1,29 @@
 export class TokenFeaturesInfo {
     private readonly _rewardFees: number;
-    private readonly _rewardsOn: boolean;
     private readonly _lpFees: number;
-    private readonly _lpOn: number;
     private readonly _treasuryFees: number;
     private readonly _burnFees: number;
-    private readonly _burnOn: number;
+    private readonly _rewardToken: string;
+    private readonly _swapSlippage: number;
+    private readonly _rewardSlippage: number;
 
-    constructor(rewardFees: number, rewardsOn: boolean, lpFees: number, lpOn: number, treasuryFees: number, burnFees: number, burnOn: number) {
+    constructor(rewardFees: number, lpFees: number, treasuryFees: number, burnFees: number,
+                rewardToken: string, swapSlippage: number, rewardSlippage: number) {
         this._rewardFees = rewardFees;
-        this._rewardsOn = rewardsOn;
         this._lpFees = lpFees;
-        this._lpOn = lpOn;
         this._treasuryFees = treasuryFees;
         this._burnFees = burnFees;
-        this._burnOn = burnOn;
+        this._rewardToken = rewardToken;
+        this._swapSlippage = swapSlippage;
+        this._rewardSlippage = rewardSlippage;
     }
 
     get rewardFees(): number {
         return this._rewardFees;
     }
 
-    get rewardsOn(): boolean {
-        return this._rewardsOn;
-    }
-
     get lpFees(): number {
         return this._lpFees;
-    }
-
-    get lpOn(): number {
-        return this._lpOn;
     }
 
     get treasuryFees(): number {
@@ -41,7 +34,15 @@ export class TokenFeaturesInfo {
         return this._burnFees;
     }
 
-    get burnOn(): number {
-        return this._burnOn;
+    get rewardToken(): string {
+        return this._rewardToken;
+    }
+
+    get rewardSlippage(): number {
+        return this._rewardSlippage;
+    }
+
+    get swapSlippage(): number {
+        return this._swapSlippage;
     }
 }

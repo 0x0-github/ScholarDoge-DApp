@@ -5,17 +5,22 @@ import chains from '../config/constants/chains';
 
 // Addresses
 import {
-    getScholarDogeDividendTrackerAddress,
     getScholarDogeTokenAddress,
+    getScholarDogeDividendTrackerAddress,
+    getScholarDogeTestDispatcherAddress,
     getWBNBDexPairAddress,
+    getDexFactoryAddress
 } from './addressHelpers';
 
 // ABI
-import scholarDogeTokenAbi from '../config/abi/ScholarDogeToken.json'
-import scholarDogeDividendTrackerAbi from '../config/abi/ScholarDogeDividendTracker.json'
-import dexPairAbi from '../config/abi/IPancakePair.json'
+import scholarDogeTokenAbi from '../config/abi/ScholarDogeToken.json';
+import scholarDogeDividendTrackerAbi from '../config/abi/ScholarDogeDividendTracker.json';
+import scholarDogeTestDispatcherAbi from '../config/abi/ScholarDogeTestDispatcher.json';
+import dexPairAbi from '../config/abi/IPancakePair.json';
+import bep20Abi from '../config/abi/BEP20.json';
+import iPancakeFactoryAbi from '../config/abi/IPancakeFactory.json';
 
-import {getGasPriceInWei, getSettings} from './settings'
+import {getGasPriceInWei, getSettings} from './settings';
 
 export const getDefaultGasPrice = () => {
     const chainId = parseInt(
@@ -46,6 +51,22 @@ export const getScholarDogeDividendTrackerContract = (web3?: Web3) => {
     return getContract(scholarDogeDividendTrackerAbi, getScholarDogeDividendTrackerAddress(), web3);
 }
 
+export const getScholarDogeTestDispatcherContract = (web3?: Web3) => {
+    return getContract(scholarDogeTestDispatcherAbi, getScholarDogeTestDispatcherAddress(), web3);
+}
+
 export const getWBNBDexPairContract = (web3?: Web3) => {
     return getContract(dexPairAbi, getWBNBDexPairAddress(), web3);
+}
+
+export const getWBNBBUSDPairContract = (web3?: Web3) => {
+    return getContract(dexPairAbi, getWBNBDexPairAddress(), web3);
+}
+
+export const getBEP20TokenContract = (web3?: Web3, address: string = "") => {
+    return getContract(bep20Abi, address, web3);
+}
+
+export const getDexFactoryContract = (web3?: Web3) => {
+    return getContract(iPancakeFactoryAbi, getDexFactoryAddress(), web3);
 }

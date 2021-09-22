@@ -1,7 +1,7 @@
 import {useMemo} from 'react'
 import useWeb3 from './useWeb3'
 import {
-    getScholarDogeDividendTrackerContract,
+    getScholarDogeTestDispatcherContract,
     getScholarDogeTokenContract,
     getWBNBDexPairContract
 } from "../utils/contractHelpers";
@@ -11,9 +11,9 @@ export const useScholarDoge = () => {
     return useMemo(() => getScholarDogeTokenContract(web3), [web3])
 }
 
-export const useScholarDogeDividendTracker = () => {
+export const useScholarDogeTestDispatcher = () => {
     const web3 = useWeb3()
-    return useMemo(() => getScholarDogeDividendTrackerContract(web3), [web3])
+    return useMemo(() => getScholarDogeTestDispatcherContract(web3), [web3])
 }
 
 export const useWBNBDexPair = () => {

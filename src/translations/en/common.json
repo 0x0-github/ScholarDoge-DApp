@@ -9,6 +9,7 @@
       "audit": "Audit",
       "lottery": "Lottery",
       "team": "Team",
+      "claim_testnet": "Claim test tokens",
       "connect_wallet": "Connect wallet"
     }
   },
@@ -35,18 +36,23 @@
     },
     "estimated_rewards": {
       "title": "Estimated rewards",
+      "interval": "Interval",
+      "daily_volume": "Daily volume",
       "balance": "Balance: {{balance}} $SDOGE",
       "estimated": "Estimated: {{estimated}} BNB",
       "hourly": "/h",
       "daily": "/d",
       "weekly": "/w",
       "monthly": "/m",
-      "yearly": "/y"
+      "yearly": "/y",
+      "low_vol": "100K$",
+      "mid_vol": "500K$",
+      "high_vol": "2M$"
     },
     "total_rewards": {
-      "title": "Total rewards",
+      "title": "Total",
       "holders": "Holders: {{holders}}",
-      "total": "Total: {{total}} BNB"
+      "total": "Distributed: {{total}} BNB"
     },
     "project_wallet": {
       "title": "{{wallet}} wallet",

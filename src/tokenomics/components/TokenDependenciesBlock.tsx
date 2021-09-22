@@ -58,27 +58,6 @@ function TokenDependenciesBlock(props: any) {
                             </p>
                         )
                 }
-                {
-                    props.info.dividendTracker ?
-                        (
-                            <p>
-                                <Link href={
-                                    // @ts-ignore
-                                    `${urls.baseBscScanURL[chainId]}/address/${props.info.dividendTracker}`}>
-                                    {t('tokenomics.token_dependencies.dividend_tracker', {
-                                        value: props.info.dividendTracker
-                                    })}
-                                </Link>
-                            </p>
-                        ) :
-                        (
-                            <p>
-                                {t('tokenomics.token_dependencies.dividendTracker', {
-                                    value: '-'
-                                })}
-                            </p>
-                        )
-                }
             </div>
         </Card>
     );

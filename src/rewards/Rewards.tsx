@@ -15,11 +15,16 @@ import {UserDividendsInfo} from "../models/UserDividendsInfo";
 import {ProjectWalletInfo} from "../models/ProjectWalletInfo";
 import CollectedRewardsBlock from "./components/CollectedRewardsBlock";
 import {Grid} from "@material-ui/core";
-import EstimatedRewardsBlock, {HOUR} from "./components/EstimatedRewardsBlock";
+import EstimatedRewardsBlock, {HOUR, MID_VOL} from "./components/EstimatedRewardsBlock";
 import TotalRewardsBlock from "./components/TotalRewardsBlock";
 import ProjectWalletBlock from "./components/ProjectWalletBlock";
 import {Spinner} from "../shared/Spinner";
 import styled from "styled-components";
+import contracts from "../config/constants/contracts";
+import chains from "../config/constants/chains";
+
+const chainId = parseInt((process.env.REACT_APP_CHAIN_ID != null) ? process.env.REACT_APP_CHAIN_ID
+    : chains.mainnet.toString(), 10);
 
 class Rewards extends Component<any, any> {
     readonly PENDING_PREFIX = 'pend_';
@@ -33,6 +38,7 @@ class Rewards extends Component<any, any> {
 
         this.state = {
             interval: HOUR,
+            dailyVolume: MID_VOL,
             userDividendInfo: UserDividendsInfo,
             totalRewards: Number,
             userBalance: Number,
@@ -87,7 +93,20 @@ class Rewards extends Component<any, any> {
             this.setState({
                 interval: value,
                 // @ts-ignore
-                estimatedRewards: await getEstimatedRewards(this.props.account, value)
+                estimatedRewards: await getEstimatedRewards(this.props.account, contracts.wbnb[chainId],
+                    this.state.dailyVolume, value)
+            });
+        }
+    }
+
+    async handleVolumeChange(value: number) {
+        // @ts-ignore
+        if (this.props.account) {
+            this.setState({
+                dailyVolume: value,
+                // @ts-ignore
+                estimatedRewards: await getEstimatedRewards(this.props.account, contracts.wbnb[chainId],
+                    value, this.state.interval)
             });
         }
     }
@@ -112,11 +131,13 @@ class Rewards extends Component<any, any> {
                 <Grid item xs={4}>
                     <EstimatedRewardsBlock key={`${this.ESTIMATED_PREFIX}${userInfo.address}`}
                                            durationChanged={this.handleDurationChange.bind(this)}
+                                           volumeChanged={this.handleVolumeChange.bind(this)}
                                            info={{
                                                balance: this.state.userBalance,
                                                estimated: this.state.estimatedRewards
                                            }}
                                            interval={this.state.interval}
+                                           dailyVolume={this.state.dailyVolume}
                                            account={this.props.account}/>
                 </Grid>
                 <Grid item xs={4}>

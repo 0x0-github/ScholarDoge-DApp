@@ -23,7 +23,7 @@ function TotalRewardsBlock(props: any) {
                             <p>
                                 <Link href={
                                     // @ts-ignore
-                                    `${urls.baseBscScanURL[chainId]}/token/${contracts.scholarDogeDividendTracker[chainId]}#balances`}>
+                                    `${urls.baseBscScanURL[chainId]}/token/${contracts.scholarDogeToken[chainId]}#balances`}>
                                     {t('rewards.total_rewards.holders', {
                                         holders: props.info.holders
                                     })}
