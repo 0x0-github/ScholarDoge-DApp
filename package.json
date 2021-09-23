@@ -1,6 +1,10 @@
 {
   "name": "scholar-doge-dapp",
   "version": "0.1.0",
+  "engines": {
+    "npm": "7.24.0",
+    "node": "14.15.2"
+  },
   "private": true,
   "dependencies": {
     "@binance-chain/bsc-connector": "^1.0.0",
@@ -20,8 +24,6 @@
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/network-connector": "^6.1.9",
     "@web3-react/walletconnect-connector": "^6.2.0",
-    "npm": "7.24.0",
-    "node": "14.15.2",
     "babel-loader": "8.1.0",
     "bootstrap": "^5.0.2",
     "ethers": "^4",
