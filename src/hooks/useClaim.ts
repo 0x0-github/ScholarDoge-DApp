@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from 'react'
+import {useCallback} from 'react'
 import {useWeb3React} from '@web3-react/core'
 import {useScholarDoge} from "./useContract";
 import contracts from "../config/constants/contracts";
