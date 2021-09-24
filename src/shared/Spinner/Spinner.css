@@ -4,3 +4,11 @@
   width: 100px;
   background: transparent;
 }
+
+video::-internal-media-controls-overlay-cast-button {
+  display: none;
+}
+
+video::-internal-media-controls-overlay-cast-button {
+  display: none;
+}
