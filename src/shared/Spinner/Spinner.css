@@ -1,14 +1,13 @@
 .spinner-content {
-  padding: 4px;
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
   background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-video::-internal-media-controls-overlay-cast-button {
-  display: none;
-}
-
-video::-internal-media-controls-overlay-cast-button {
-  display: none;
+.spinner-logo {
+  width: 60px;
+  height: 60px;
 }

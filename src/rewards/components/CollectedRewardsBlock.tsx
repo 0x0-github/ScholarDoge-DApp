@@ -15,7 +15,9 @@ function CollectedRewardsBlock(props: any) {
                 <p className="collected-rewards">
                     {t('rewards.collected_rewards.collected', {
                         collected: props.info.totalDividends ?
-                            numberToDecimalStr(props.info.totalDividends) : 0
+                            numberToDecimalStr(props.info.totalDividends,
+                                props.currentRewardToken.decimals) : 0,
+                        token: props.currentRewardToken.symbol
                     })}
                 </p>
             </div>

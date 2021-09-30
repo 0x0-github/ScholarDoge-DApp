@@ -33,7 +33,8 @@ function EstimatedRewardsBlock(props: any) {
                 <p className="estimated-rewards">
                     {t('rewards.estimated_rewards.estimated', {
                         estimated: props.info.estimated ?
-                            numberToDecimalStr(props.info.estimated) : 0
+                            numberToDecimalStr(props.info.estimated, props.currentRewardToken.decimals) : 0,
+                        token: props.currentRewardToken.symbol
                     })}
                 </p>
 

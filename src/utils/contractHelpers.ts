@@ -9,7 +9,7 @@ import {
     getScholarDogeDividendTrackerAddress,
     getScholarDogeTestDispatcherAddress,
     getWBNBDexPairAddress,
-    getDexFactoryAddress
+    getDexFactoryAddress, getWBNBBUSDPairAddress
 } from './addressHelpers';
 
 // ABI
@@ -43,6 +43,10 @@ const getContract = (abi: any, address: string, web3?: Web3, account?: string) =
     });
 }
 
+export const getDexPairContract = (web3?: Web3, address: string = '') => {
+    return getContract(dexPairAbi, address, web3);
+}
+
 export const getScholarDogeTokenContract = (web3?: Web3) => {
     return getContract(scholarDogeTokenAbi, getScholarDogeTokenAddress(), web3);
 }
@@ -56,14 +60,14 @@ export const getScholarDogeTestDispatcherContract = (web3?: Web3) => {
 }
 
 export const getWBNBDexPairContract = (web3?: Web3) => {
-    return getContract(dexPairAbi, getWBNBDexPairAddress(), web3);
+    return getDexPairContract(web3, getWBNBDexPairAddress());
 }
 
 export const getWBNBBUSDPairContract = (web3?: Web3) => {
-    return getContract(dexPairAbi, getWBNBDexPairAddress(), web3);
+    return getDexPairContract(web3, getWBNBBUSDPairAddress());
 }
 
-export const getBEP20TokenContract = (web3?: Web3, address: string = "") => {
+export const getBEP20TokenContract = (web3?: Web3, address: string = '') => {
     return getContract(bep20Abi, address, web3);
 }
 

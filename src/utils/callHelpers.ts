@@ -1,6 +1,6 @@
 import web3 from './web3';
 import {
-    getBEP20TokenContract, getScholarDogeDividendTrackerContract,
+    getBEP20TokenContract, getDexFactoryContract, getDexPairContract, getScholarDogeDividendTrackerContract,
     getScholarDogeTokenContract, getWBNBBUSDPairContract,
     getWBNBDexPairContract
 } from "./contractHelpers";
@@ -14,10 +14,11 @@ import {TokenFeaturesInfo} from "../models/TokenFeaturesInfo";
 import {TokenStatsInfo} from "../models/TokenStatsInfo";
 import {TokenConstraintsInfo} from "../models/TokenConstraintsInfo";
 import {TokenDependenciesInfo} from "../models/TokenDependenciesInfo";
+import {RewardTokenInfo} from "../models/RewardTokenInfo";
 
 // TODO : Up here if updates
-const HOUR = 3600;
-const DAY = 86400;
+const HOUR_SECONDS = 3600;
+const DAY_SECONDS = 86400;
 // Estimating rewards based on volume. Later using an oracle should help.
 const EST_DAILY_VOLUME = 1000000;
 const BURN_ADDR1 = '0x0000000000000000000000000000000000000000';
@@ -86,27 +87,72 @@ export const getEstimatedRewards = async (account: string, rewardToken: string =
     const scholarDogeToken = getScholarDogeTokenContract(web3);
     const tokenBalance = await scholarDogeToken.methods.balanceOf(account).call();
     const rewardShare = tokenBalance / await scholarDogeToken.methods.totalSupply().call() * 100;
+    // TODO replace assignation with getWBNBBUSDPairContract(web3), only used for
     const wbnbBusdPair = getWBNBBUSDPairContract(web3);
     const reserves = await wbnbBusdPair.methods.getReserves().call();
     const token0 = await wbnbBusdPair.methods.token0().call();
     const reserveWBNB = (token0 === wBNBAddress) ? reserves['reserve0'] : reserves['reserve1'];
     const reserveBUSD = (reserveWBNB === reserves['reserve0']) ? reserves['reserve1'] : reserves['reserve0'];
     const bnbDailyVolume = dailyVolume * reserveWBNB / reserveBUSD;
-    let result = 0;
+    const feeStruct = await scholarDogeToken.methods.feeStruct().call();
+    let baseComputing;
+    let decimals;
 
     if (rewardToken === defaultReward) {
-        result = lodash.round(bnbDailyVolume / DAY * seconds * 10 / 100 * rewardShare) / 10 ** 18;
+        baseComputing = bnbDailyVolume;
+        decimals = 18;
     } else {
-        // TODO: Do the cases (take care about routing).
+        const rewardTokenContract = getBEP20TokenContract(web3, rewardToken);
+        const dexFactoryContract = getDexFactoryContract(web3);
+        const wbnbRewardTokenPairAddress = await dexFactoryContract.methods.getPair(rewardToken, wBNBAddress).call();
+        const wbnbRewardTokenPair = getDexPairContract(web3, wbnbRewardTokenPairAddress);
+        const rewardReserves = await wbnbRewardTokenPair.methods.getReserves().call();
+        const rewardToken0 = await wbnbRewardTokenPair.methods.token0().call();
+        const rewardReserveWBNB = (rewardToken0 === wBNBAddress) ? rewardReserves['reserve0']
+            : rewardReserves['reserve1'];
+        const rewardReserveOtherToken = (rewardReserveWBNB === rewardReserves['reserve0'])
+            ? rewardReserves['reserve1'] : rewardReserves['reserve0'];
+
+        console.log("daily volume:");
+        console.log(dailyVolume);
+        console.log("bnb daily volume:");
+        console.log(bnbDailyVolume);
+        console.log("reward reserve other token");
+        console.log(rewardReserveOtherToken);
+        console.log("reward reserve wbnb");
+        console.log(rewardReserveWBNB);
+
+        decimals = await rewardTokenContract.methods.decimals().call();
+        baseComputing = bnbDailyVolume * rewardReserveOtherToken * 10 ** (18 - decimals) / rewardReserveWBNB;
+
+        // TODO: Take care about routing when changing reward token.
     }
+
+    const result = lodash.round(baseComputing / DAY_SECONDS * seconds * feeStruct['rewardFee']
+        / 100 * rewardShare / 100) / 10 ** decimals;
+
+    console.log("base computing");
+    console.log(baseComputing);
+    console.log("reward share");
+    console.log(rewardShare);
+    console.log("day seconds");
+    console.log(DAY_SECONDS);
+    console.log("seconds");
+    console.log(seconds);
+    console.log("decimals");
+    console.log(decimals);
+    console.log("result");
+    console.log(result);
 
     return result;
 }
 
 export const getTotalRewards = async (rewardToken: string = defaultReward) => {
     const dividendTrackerContract = getScholarDogeDividendTrackerContract(web3);
+    const rewardTokenContract = getBEP20TokenContract(web3, rewardToken);
     const holders = await dividendTrackerContract.methods.getNumberOfTokenHolders().call();
-    const rewards = await dividendTrackerContract.methods.totalDividendsDistributed(rewardToken).call() / 10 ** 18;
+    const rewards = await dividendTrackerContract.methods.totalDividendsDistributed(rewardToken).call()
+        / 10 ** (await rewardTokenContract.methods.decimals().call());
 
     return new TotalRewardsInfo(holders, rewards);
 }
@@ -150,7 +196,7 @@ export const getTokenConstraints = async () => {
     const dividendTracker = getScholarDogeDividendTrackerContract(web3);
     const maxHold = await scholarDogeToken.methods.maxHold().call() / 10 ** 9;
     const maxSellTx = await scholarDogeToken.methods.maxSellTx().call() / 10 ** 9;
-    const claimWait = await dividendTracker.methods.claimWait().call() / HOUR;
+    const claimWait = await dividendTracker.methods.claimWait().call() / HOUR_SECONDS;
 
     return new TokenConstraintsInfo(maxHold, maxSellTx, claimWait);
 }
@@ -168,4 +214,62 @@ export const getScholarDogeBalance = async (account: string) => {
     const scholarDogeToken = getScholarDogeTokenContract(web3);
 
     return Number.parseInt(await scholarDogeToken.methods.balanceOf(account).call()) / 10 ** 9;
+}
+
+export const getToken = async (address: string) => {
+    const rewardTokenContract = getBEP20TokenContract(web3, address);
+    const decimals = await rewardTokenContract.methods.decimals().call();
+    let name = await rewardTokenContract.methods.name().call();
+    let symbol = await rewardTokenContract.methods.symbol().call();
+
+    return new RewardTokenInfo(
+        address,
+        name,
+        symbol,
+        decimals,
+    );
+}
+
+export const getRewardTokens = async () => {
+    const scholarDogeToken = getScholarDogeTokenContract(web3);
+    const rewardTokenCount = await scholarDogeToken.methods.rewardTokenCount().call();
+    const rewardTokens = [];
+
+    for (let i = 0; i < rewardTokenCount; ++i) {
+        const address = await scholarDogeToken.methods.rewardTokens(i).call();
+        const rewardTokenContract = getBEP20TokenContract(web3, address);
+        const decimals = await rewardTokenContract.methods.decimals().call();
+        let name = await rewardTokenContract.methods.name().call();
+        let symbol = await rewardTokenContract.methods.symbol().call();
+
+        if (symbol === "WBNB") {
+            name = "Binance Smart Chain";
+            symbol = "BNB";
+        }
+
+        rewardTokens.push(
+            new RewardTokenInfo(
+                address,
+                name,
+                symbol,
+                decimals,
+            )
+        );
+    }
+
+    return rewardTokens;
+}
+
+export const getCurrentRewardToken = async () => {
+    const scholarDogeToken = getScholarDogeTokenContract(web3);
+    const rewardStruct = await scholarDogeToken.methods.rewardStruct().call();
+    const address = rewardStruct["rewardToken"];
+    const rewardTokenContract = getBEP20TokenContract(web3, address);
+
+    return new RewardTokenInfo(
+        address,
+        await rewardTokenContract.methods.name().call(),
+        await rewardTokenContract.methods.symbol().call(),
+        await rewardTokenContract.methods.decimals().call(),
+    );
 }

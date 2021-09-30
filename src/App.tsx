@@ -3,7 +3,6 @@ import './App.css';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Header from "./header/Header";
 import {useWeb3React} from "@web3-react/core";
-import { Helmet } from 'react-helmet'
 import useAuth from "./hooks/useAuth";
 import Rewards from "./rewards/Rewards";
 import useEagerConnect from "./hooks/useEagerConnect";
@@ -20,9 +19,7 @@ function App() {
 
     return (
         <Suspense fallback="loading">
-            <Helmet>
-                <title>{TITLE}</title>
-            </Helmet>
+            <title>{TITLE}</title>
             <div className="App">
                 <Header account={account ? account : undefined} login={login} logout={logout}/>
                 <BrowserRouter>

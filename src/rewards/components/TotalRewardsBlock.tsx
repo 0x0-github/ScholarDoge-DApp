@@ -42,7 +42,8 @@ function TotalRewardsBlock(props: any) {
                 <p>
                     {t('rewards.total_rewards.total', {
                         total: props.info.total ?
-                            numberToDecimalStr(props.info.total) : 0
+                            numberToDecimalStr(props.info.total) : 0,
+                        token: props.currentRewardToken.symbol
                     })}
                 </p>
             </div>

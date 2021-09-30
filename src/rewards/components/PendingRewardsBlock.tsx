@@ -12,10 +12,11 @@ function PendingRewardsBlock(props: any) {
     const {t} = useTranslation('common');
     const lastClaim = timestampToFormattedDate(props.info.lastClaimTime);
     const nextClaim = timestampToFormattedDate(props.info.nextClaimTime);
-    const {onClaim} = useClaim();
+    const {onClaim} = useClaim(props.currentRewardToken.address);
     const handleClaim = async () => {
         await onClaim();
     }
+
     return (
         <Card className="card">
             <H2>{t('rewards.pending_rewards.title')}</H2>
@@ -23,7 +24,8 @@ function PendingRewardsBlock(props: any) {
                 <p className="pending-rewards">
                     {t('rewards.pending_rewards.pending', {
                         pending: props.info.withdrawableDividends ?
-                            numberToDecimalStr(props.info.withdrawableDividends) : 0
+                            numberToDecimalStr(props.info.withdrawableDividends) : 0,
+                        token: props.currentRewardToken.symbol
                     })}
                 </p>
                 <p className="last-claim-block">
@@ -36,7 +38,7 @@ function PendingRewardsBlock(props: any) {
                         next: nextClaim
                     })}
                 </p>
-                <Button variant={'secondary'} scale="sm" onClick={() => {
+                <Button className={"claim-btn"} variant={'secondary'} scale="sm" onClick={() => {
                     handleClaim()
                 }}>
                     {t('rewards.pending_rewards.claim')}

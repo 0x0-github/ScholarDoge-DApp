@@ -1,18 +1,18 @@
 import React, {Component, HTMLAttributes} from 'react';
 import './Rewards.css';
 import {
+    getCurrentRewardToken,
     getEstimatedRewards,
     getFoundationWalletInfo,
-    getMarketingWalletInfo,
+    getMarketingWalletInfo, getRewardTokens,
     getScholarDogeBalance,
-    getTeamTimelockWalletInfo,
+    getTeamTimelockWalletInfo, getToken,
     getTotalRewards,
     getTreasuryWalletInfo,
     getUserDividendsInfo
 } from "../utils/callHelpers";
 import PendingRewardsBlock from "./components/PendingRewardsBlock";
 import {UserDividendsInfo} from "../models/UserDividendsInfo";
-import {ProjectWalletInfo} from "../models/ProjectWalletInfo";
 import CollectedRewardsBlock from "./components/CollectedRewardsBlock";
 import {Grid} from "@material-ui/core";
 import EstimatedRewardsBlock, {HOUR, MID_VOL} from "./components/EstimatedRewardsBlock";
@@ -20,13 +20,12 @@ import TotalRewardsBlock from "./components/TotalRewardsBlock";
 import ProjectWalletBlock from "./components/ProjectWalletBlock";
 import {Spinner} from "../shared/Spinner";
 import styled from "styled-components";
-import contracts from "../config/constants/contracts";
-import chains from "../config/constants/chains";
-
-const chainId = parseInt((process.env.REACT_APP_CHAIN_ID != null) ? process.env.REACT_APP_CHAIN_ID
-    : chains.mainnet.toString(), 10);
+import RewardTokensBlock from "./components/RewardTokensBlock";
+import {RewardTokenInfo} from "../models/RewardTokenInfo";
+import {getRewardToken, setRewardToken} from "../utils/sessionStorageUtils";
 
 class Rewards extends Component<any, any> {
+    readonly REWARD_TOKENS_PREFIX = 'rewtkn_';
     readonly PENDING_PREFIX = 'pend_';
     readonly COLLECTED_PREFIX = 'collec_';
     readonly ESTIMATED_PREFIX = 'estim_';
@@ -39,14 +38,17 @@ class Rewards extends Component<any, any> {
         this.state = {
             interval: HOUR,
             dailyVolume: MID_VOL,
-            userDividendInfo: UserDividendsInfo,
+            userDividendInfo: null,
             totalRewards: Number,
             userBalance: Number,
-            userEstimatedRewards: Number,
-            treasuryInfo: ProjectWalletInfo,
-            marketingInfo: ProjectWalletInfo,
-            foundationInfo: ProjectWalletInfo,
-            teamTimelockInfo: ProjectWalletInfo,
+            estimatedRewards: Number,
+            treasuryInfo: null,
+            marketingInfo: null,
+            foundationInfo: null,
+            teamTimelockInfo: null,
+            currentRewardToken: null,
+            displayedRewardToken: null,
+            rewardTokens: [],
             loading: true
         };
     }
@@ -56,17 +58,34 @@ class Rewards extends Component<any, any> {
         let estimatedRewards = 0;
         let userBalance = 0;
 
+        const currentRewardToken = await getCurrentRewardToken();
+        let storedRewardToken = getRewardToken();
+
+        if (storedRewardToken == null) {
+            setRewardToken(currentRewardToken);
+
+            storedRewardToken = currentRewardToken;
+        }
+
+        this.setState({
+            currentRewardToken: currentRewardToken,
+            displayedRewardToken: storedRewardToken
+        });
+
         if (this.props.account) {
-            userInfo = await getUserDividendsInfo(this.props.account);
-            estimatedRewards = await getEstimatedRewards(this.props.account);
+            userInfo = await getUserDividendsInfo(this.props.account,
+                storedRewardToken.address);
+            estimatedRewards = await getEstimatedRewards(this.props.account,
+                storedRewardToken.address);
             userBalance = await getScholarDogeBalance(this.props.account);
         }
 
-        const totalRewards = await getTotalRewards();
+        const totalRewards = await getTotalRewards(storedRewardToken.address);
         const treasuryInfo = await getTreasuryWalletInfo();
         const marketingInfo = await getMarketingWalletInfo();
         const foundationInfo = await getFoundationWalletInfo();
         const teamTimelockInfo = await getTeamTimelockWalletInfo();
+        const rewardTokens = await getRewardTokens();
 
         this.setState({
             userDividendInfo: userInfo,
@@ -77,38 +96,51 @@ class Rewards extends Component<any, any> {
             marketingInfo: marketingInfo,
             foundationInfo: foundationInfo,
             teamTimelockInfo: teamTimelockInfo,
+            rewardTokens: rewardTokens,
             loading: false
         });
     }
 
     componentWillUnmount() {
-        this.setState = (state, callback) => {
+        this.setState = () => {
             return;
         };
     }
 
     async handleDurationChange(value: number) {
-        // @ts-ignore
         if (this.props.account) {
             this.setState({
                 interval: value,
                 // @ts-ignore
-                estimatedRewards: await getEstimatedRewards(this.props.account, contracts.wbnb[chainId],
-                    this.state.dailyVolume, value)
+                estimatedRewards: await getEstimatedRewards(this.props.account,
+                    this.state.displayedRewardToken.address, this.state.dailyVolume, value)
             });
         }
     }
 
     async handleVolumeChange(value: number) {
-        // @ts-ignore
         if (this.props.account) {
             this.setState({
                 dailyVolume: value,
                 // @ts-ignore
-                estimatedRewards: await getEstimatedRewards(this.props.account, contracts.wbnb[chainId],
-                    value, this.state.interval)
+                estimatedRewards: await getEstimatedRewards(this.props.account,
+                    this.state.displayedRewardToken.address, value, this.state.interval)
             });
         }
+    }
+
+    async handleRewardTokenChange(value: string) {
+        const rewardToken = await getToken(value);
+
+        this.setState({
+            displayedRewardToken: rewardToken,
+            userDividendInfo: await getUserDividendsInfo(this.props.account,
+                rewardToken.address),
+            estimatedRewards: await getEstimatedRewards(this.props.account,
+                rewardToken.address, this.state.dailyVolume, this.state.interval),
+            totalRewards: await getTotalRewards(rewardToken.address)
+        });
+        setRewardToken(rewardToken);
     }
 
     render() {
@@ -121,14 +153,32 @@ class Rewards extends Component<any, any> {
             userInfo = this.state.userDividendInfo;
         }
 
+        const options = this.state.rewardTokens.map((elt: RewardTokenInfo) => {
+            return {value: elt.address, label: elt.name + ' - ' + elt.symbol}
+        });
+
         this.state.loading ?
             content = <Spinner/>
             :
             content = <Grid container spacing={1}>
-                <Grid item xs={4}>
-                    <PendingRewardsBlock key={`${this.PENDING_PREFIX}${userInfo.address}`} info={userInfo}/>
+                <Grid item xs={12} className={"reward-token-block"}>
+                    <RewardTokensBlock key={`${this.REWARD_TOKENS_PREFIX}${userInfo.address}`}
+                                       currentRewardToken={this.state.currentRewardToken}
+                                       rewardTokenChanged={this.handleRewardTokenChange.bind(this)}
+                                       rewardTokens={options}
+                                       displayedRewardToken={this.state.displayedRewardToken}/>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={6}>
+                    <PendingRewardsBlock key={`${this.PENDING_PREFIX}${userInfo.address}`}
+                                         currentRewardToken={this.state.displayedRewardToken}
+                                         info={userInfo}/>
+                </Grid>
+                <Grid item xs={6}>
+                    <CollectedRewardsBlock key={`${this.COLLECTED_PREFIX}${userInfo.address}`}
+                                           currentRewardToken={this.state.displayedRewardToken}
+                                           info={userInfo}/>
+                </Grid>
+                <Grid item xs={12}>
                     <EstimatedRewardsBlock key={`${this.ESTIMATED_PREFIX}${userInfo.address}`}
                                            durationChanged={this.handleDurationChange.bind(this)}
                                            volumeChanged={this.handleVolumeChange.bind(this)}
@@ -136,15 +186,14 @@ class Rewards extends Component<any, any> {
                                                balance: this.state.userBalance,
                                                estimated: this.state.estimatedRewards
                                            }}
+                                           currentRewardToken={this.state.displayedRewardToken}
                                            interval={this.state.interval}
                                            dailyVolume={this.state.dailyVolume}
                                            account={this.props.account}/>
                 </Grid>
-                <Grid item xs={4}>
-                    <CollectedRewardsBlock key={`${this.COLLECTED_PREFIX}${userInfo.address}`} info={userInfo}/>
-                </Grid>
                 <Grid item xs={12}>
                     <TotalRewardsBlock key={`${this.TOTAL_PREFIX}${userInfo.address}`}
+                                       currentRewardToken={this.state.displayedRewardToken}
                                        info={this.state.totalRewards}/>
                 </Grid>
                 <Grid item xs={12}>

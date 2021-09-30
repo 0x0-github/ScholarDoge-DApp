@@ -18,7 +18,7 @@ const useClaim = (rewardToken: string = contracts.wbnb[chainId]) => {
                 await scholarDoge.methods.claim(rewardToken).send({from: account});
             }
         },
-        [account, scholarDoge.methods],
+        [account, rewardToken, scholarDoge.methods],
     )
 
     return {onClaim: handleClaim};

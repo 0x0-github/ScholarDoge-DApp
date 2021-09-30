@@ -185,9 +185,9 @@
     "name": "claimWait",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "stateMutability": "view",
@@ -311,56 +311,13 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "magnifiedDividendCorrections",
-    "outputs": [
-      {
-        "internalType": "int256",
-        "name": "",
-        "type": "int256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "magnifiedDividendPerShare",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "minTokensForDividends",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint64",
         "name": "",
-        "type": "uint256"
+        "type": "uint64"
       }
     ],
     "stateMutability": "view",
@@ -513,9 +470,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "newClaimWait",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "name": "updateClaimWait",
@@ -549,9 +506,9 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint32",
         "name": "gas",
-        "type": "uint256"
+        "type": "uint32"
       }
     ],
     "name": "updateWithdrawGas",

@@ -1,11 +1,11 @@
 const contracts = {
     scholarDogeToken: {
         56: '',
-        97: '0xAAa9d9edA598384E564AD28D36Ad4Add276Bff8b',
+        97: '0xb819c5cbB95AF55C1C5a5E1A58B51DB0a5066B08',
     },
     scholarDogeDividendTracker: {
         56: '',
-        97: '0x85B7edB34924d19eBa8db333E55ed3bE101dF35F',
+        97: '0xA9a324311B2802789D4712f0E56c9348ADc6adC9',
     },
     scholarDogeTestDispatcher: {
         56: '',
@@ -21,11 +21,11 @@ const contracts = {
     },
     dexPair: {
         56: '',
-        97: '0xAc14E7c1ac35b1d75E37378F1c211d3661c0F7bF'
+        97: '0x38d2AEB820E8e589A0D4Bda78814E5990B2f38da'
     },
     wbnbBusdPair: {
         56: '0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16',
-        97: '0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16'
+        97: '0x23Ec7009caBA76d3a0756c98dF6a650a3B0eAC8E'
     },
     lottery: {
         56: '',
@@ -49,7 +49,7 @@ const contracts = {
     },
     teamTimelock: {
         56: '',
-        97: '0x9A542e1805588A17d41bEAe5A231bFD395e84703',
+        97: '0x6D9aa4B037e1DCc7a09EBC81344DE82A585d28C8',
     }
 };
 

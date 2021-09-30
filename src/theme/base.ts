@@ -42,7 +42,7 @@ const zIndices = {
     modal: 100,
 };
 
-export default {
+const data = {
     siteWidth: 1200,
     breakpoints,
     mediaQueries,
@@ -51,3 +51,5 @@ export default {
     radii,
     zIndices,
 };
+
+export default data;

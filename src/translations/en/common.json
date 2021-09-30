@@ -23,23 +23,28 @@
   "footer": {
   },
   "rewards": {
+    "reward_tokens": {
+      "title": "Reward tokens",
+      "current": "Current: {{name}} - {{symbol}}",
+      "token_select": "Reward token to display"
+    },
     "pending_rewards": {
       "title": "Pending rewards",
-      "pending": "Prending: {{pending}} BNB",
+      "pending": "Prending: {{pending}} {{token}}",
       "last_claim": "Last claim: {{last}}",
       "next_claim": "Next claim: {{next}}",
       "claim": "Claim"
     },
     "collected_rewards": {
       "title": "Collected rewards",
-      "collected": "Collected: {{collected}} BNB"
+      "collected": "Collected: {{collected}} {{token}}"
     },
     "estimated_rewards": {
       "title": "Estimated rewards",
       "interval": "Interval",
       "daily_volume": "Daily volume",
       "balance": "Balance: {{balance}} $SDOGE",
-      "estimated": "Estimated: {{estimated}} BNB",
+      "estimated": "Estimated: {{estimated}} {{token}}",
       "hourly": "/h",
       "daily": "/d",
       "weekly": "/w",
@@ -52,7 +57,7 @@
     "total_rewards": {
       "title": "Total",
       "holders": "Holders: {{holders}}",
-      "total": "Distributed: {{total}} BNB"
+      "total": "Distributed: {{total}} {{token}}"
     },
     "project_wallet": {
       "title": "{{wallet}} wallet",
@@ -81,7 +86,7 @@
       "title": "Token constraints",
       "max_hold": "Max hold: {{value}} $SDOGE",
       "max_sell_tx": "Max sell /tx: {{value}} $SDOGE",
-      "claim_time_h": "BNB claim time: {{value}}h"
+      "claim_time_h": "Rewards claim time: {{value}}h"
     },
     "token_dependencies": {
       "title": "Token dependencies",
