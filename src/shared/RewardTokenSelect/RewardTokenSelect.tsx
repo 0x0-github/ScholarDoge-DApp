@@ -10,15 +10,15 @@ function RewardTokenSelect(props: any) {
         control: (styles: any) => ({
             ...styles,
             backgroundColor: theme.colors.tertiary,
-            borderColor: theme.colors.secondary
+            borderColor: theme.colors.tertiary
         }),
         input: (styles: any) => ({
             ...styles,
-            color: theme.colors.primary
+            color: theme.colors.accent
         }),
         singleValue: (styles: any) => ({
             ...styles,
-            color: theme.colors.primary
+            color: theme.colors.accent
         }),
         clearIndicator: (styles: any) => ({
             ...styles,
@@ -26,30 +26,30 @@ function RewardTokenSelect(props: any) {
         }),
         placeholder: (styles: any) => ({
             ...styles,
-            color: theme.colors.primary
+            color: theme.colors.accent
         }),
         dropdownIndicator: (styles: any) => ({
             ...styles,
-            color: theme.colors.primary,
+            color: theme.colors.accent,
         }),
         indicatorSeparator: (styles: any) => ({
             ...styles,
-            color: theme.colors.primary,
+            backgroundColor: theme.colors.accent
         }),
         noOptionsMessage: (styles: any) => ({
             ...styles,
-            color: theme.colors.primary,
+            color: theme.colors.accent,
         }),
         menuList: (styles: any) => ({
             ...styles,
-            color: theme.colors.primary,
+            color: theme.colors.accent,
             backgroundColor: theme.colors.tertiary,
         }),
         option: (styles: any) => {
             return {
                 ...styles,
                 backgroundColor: theme.colors.tertiary,
-                color: theme.colors.primary,
+                color: theme.colors.accent,
                 borderColor: theme.colors.secondary
             };
         }

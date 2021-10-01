@@ -15,8 +15,8 @@ function Spinner() {
 }
 
 const StyledSpinner = styled.div<HTMLAttributes<HTMLDivElement>>`
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   margin: 0;
   position: fixed;
   top: 50%;

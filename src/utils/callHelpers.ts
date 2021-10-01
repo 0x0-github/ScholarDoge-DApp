@@ -113,38 +113,14 @@ export const getEstimatedRewards = async (account: string, rewardToken: string =
         const rewardReserveOtherToken = (rewardReserveWBNB === rewardReserves['reserve0'])
             ? rewardReserves['reserve1'] : rewardReserves['reserve0'];
 
-        console.log("daily volume:");
-        console.log(dailyVolume);
-        console.log("bnb daily volume:");
-        console.log(bnbDailyVolume);
-        console.log("reward reserve other token");
-        console.log(rewardReserveOtherToken);
-        console.log("reward reserve wbnb");
-        console.log(rewardReserveWBNB);
-
         decimals = await rewardTokenContract.methods.decimals().call();
         baseComputing = bnbDailyVolume * rewardReserveOtherToken * 10 ** (18 - decimals) / rewardReserveWBNB;
 
-        // TODO: Take care about routing when changing reward token.
+        // TODO: Take care about routing when changing reward token (if not paired with BNB).
     }
 
-    const result = lodash.round(baseComputing / DAY_SECONDS * seconds * feeStruct['rewardFee']
+    return lodash.round(baseComputing / DAY_SECONDS * seconds * feeStruct['rewardFee']
         / 100 * rewardShare / 100) / 10 ** decimals;
-
-    console.log("base computing");
-    console.log(baseComputing);
-    console.log("reward share");
-    console.log(rewardShare);
-    console.log("day seconds");
-    console.log(DAY_SECONDS);
-    console.log("seconds");
-    console.log(seconds);
-    console.log("decimals");
-    console.log(decimals);
-    console.log("result");
-    console.log(result);
-
-    return result;
 }
 
 export const getTotalRewards = async (rewardToken: string = defaultReward) => {
@@ -161,10 +137,11 @@ export const getTokenFeatures = async () => {
     const scholarDogeToken = getScholarDogeTokenContract(web3);
     const feeStruct = await scholarDogeToken.methods.feeStruct().call();
     const rewardStruct = await scholarDogeToken.methods.rewardStruct().call();
+    const safeLaunchOn = await scholarDogeToken.methods.safeLaunch().call();
 
     return new TokenFeaturesInfo(feeStruct['rewardFee'], feeStruct['lpFee'],
         feeStruct['treasuryFee'], feeStruct['burnFee'], rewardStruct['rewardToken'],
-        rewardStruct['swapSlippage'], rewardStruct['rewardSlippage']);
+        rewardStruct['swapSlippage'], rewardStruct['rewardSlippage'], safeLaunchOn);
 }
 
 export const getTokenStats = async () => {
@@ -196,18 +173,20 @@ export const getTokenConstraints = async () => {
     const dividendTracker = getScholarDogeDividendTrackerContract(web3);
     const maxHold = await scholarDogeToken.methods.maxHold().call() / 10 ** 9;
     const maxSellTx = await scholarDogeToken.methods.maxSellTx().call() / 10 ** 9;
+    const minTokensForDividends = await dividendTracker.methods.minTokensForDividends().call() / 10 ** 9;
     const claimWait = await dividendTracker.methods.claimWait().call() / HOUR_SECONDS;
 
-    return new TokenConstraintsInfo(maxHold, maxSellTx, claimWait);
+    return new TokenConstraintsInfo(maxHold, maxSellTx, minTokensForDividends, claimWait);
 }
 
 export const getTokenDependenciesInfo = async () => {
     const scholarDogeToken = getScholarDogeTokenContract(web3);
+    const dividendTracker = await scholarDogeToken.methods.dividendTracker().call();
     const dexStruct = await scholarDogeToken.methods.dexStruct().call();
     const router = dexStruct['router'];
     const pair = dexStruct['pair'];
 
-    return new TokenDependenciesInfo(router, pair);
+    return new TokenDependenciesInfo(dividendTracker, router, pair);
 }
 
 export const getScholarDogeBalance = async (account: string) => {

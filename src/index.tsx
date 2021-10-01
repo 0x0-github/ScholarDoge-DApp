@@ -24,6 +24,12 @@ i18next.init({
 
 ReactDOM.render(
     <React.StrictMode>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+            <link rel="preconnect" href="https://fonts.gstatic.com"/>
+                <link href="https://fonts.googleapis.com/css2?family=Anton&family=Nunito&display=swap" rel="stylesheet"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com"/>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet"/>
         <I18nextProvider i18n={i18next}>
             <Providers>
                 <App/>

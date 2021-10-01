@@ -8,3 +8,8 @@
     display: flex;
     flex-direction: column;
 }
+
+.text-caption {
+    font-size: 11px;
+    margin-top: -16px;
+}

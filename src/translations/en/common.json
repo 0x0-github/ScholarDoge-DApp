@@ -72,7 +72,18 @@
       "rewards": "Rewards: {{value}}%",
       "lp": "Liquidity pool: {{value}}%",
       "treasury": "Donations: {{value}}%",
-      "burn": "Burn: {{value}}%"
+      "burn": "Burn: {{value}}%",
+      "reward_token": "Reward token: {{value}}%",
+      "safe_launch_on": "Safe launch: On",
+      "safe_launch_off": "Safe launch: Off",
+      "safe_launch_caption": "The safe launch is a feature to prevent sniper bot usage or dumps on investors, this consists into limiting the transactions priorities and the sells intervals.",
+      "safe_launch_tax_percentage": "Bot tax: 60%",
+      "safe_launch_tax_percentage_caption": "Fees set to 60% the amount of the transaction if paying too much gas (potential sniper bots).",
+      "safe_launch_tax_gwei_limit": "Bot tax gwei limit: 10 gwei",
+      "safe_launch_tax_gwei_limit_caption": "Tax occurs if setting 10 gwei price or more for transaction.",
+      "safe_launch_revert_gwei_limit": "Bot revert gwei: 6 gwei",
+      "safe_launch_revert_gwei_limit_caption": "Reverting transaction if setting 6 gwei price or more for transaction.",
+      "safe_launch_sell_limit_interval": "Limit sell interval: 3 minutes"
     },
     "token_stats": {
       "title": "Token stats",
@@ -80,19 +91,20 @@
       "burned": "Burned: {{value}} $SDOGE",
       "added_sdoge_lp": "Added $SDOGE lp: {{value}} $SDOGE",
       "added_bnb_lp": "Added BNB lp: {{value}} BNB",
-      "collected": "Collected: {{value}} $SDOGE"
+      "collected": "Treasury fee collected: {{value}} $SDOGE"
     },
     "token_constraints": {
       "title": "Token constraints",
+      "min_for_rewards": "Min tokens for reward: {{value}} $SDOGE",
       "max_hold": "Max hold: {{value}} $SDOGE",
       "max_sell_tx": "Max sell /tx: {{value}} $SDOGE",
       "claim_time_h": "Rewards claim time: {{value}}h"
     },
     "token_dependencies": {
       "title": "Token dependencies",
+      "dividend_tracker": "Dividend tracker: {{value}}",
       "router": "Dex router: {{value}}",
-      "pair": "Dex pair: {{value}}",
-      "dividend_tracker": "Dividend tracker: {{value}}"
+      "pair": "Dex pair: {{value}}"
     }
   }
 }

@@ -22,6 +22,12 @@ function TokenFeaturesBlock(props: any) {
                     })}
                 </p>
                 <p>
+                    {t('tokenomics.token_constraints.min_for_rewards',
+                        {value:  props.info.minTokensForDividends ?
+                            props.info.minTokensForDividends : 0
+                    })}
+                </p>
+                <p>
                     {t('tokenomics.token_constraints.claim_time_h', {value:  props.info.claimTime ?
                             props.info.claimTime : 0
                     })}

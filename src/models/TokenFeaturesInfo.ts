@@ -6,9 +6,10 @@ export class TokenFeaturesInfo {
     private readonly _rewardToken: string;
     private readonly _swapSlippage: number;
     private readonly _rewardSlippage: number;
+    private readonly _safeLaunchOn: boolean;
 
     constructor(rewardFees: number, lpFees: number, treasuryFees: number, burnFees: number,
-                rewardToken: string, swapSlippage: number, rewardSlippage: number) {
+                rewardToken: string, swapSlippage: number, rewardSlippage: number, safeLaunchOn: boolean) {
         this._rewardFees = rewardFees;
         this._lpFees = lpFees;
         this._treasuryFees = treasuryFees;
@@ -16,6 +17,7 @@ export class TokenFeaturesInfo {
         this._rewardToken = rewardToken;
         this._swapSlippage = swapSlippage;
         this._rewardSlippage = rewardSlippage;
+        this._safeLaunchOn = safeLaunchOn;
     }
 
     get rewardFees(): number {
@@ -44,5 +46,9 @@ export class TokenFeaturesInfo {
 
     get swapSlippage(): number {
         return this._swapSlippage;
+    }
+
+    get safeLaunchOn(): boolean {
+        return this._safeLaunchOn;
     }
 }

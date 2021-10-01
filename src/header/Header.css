@@ -5,6 +5,10 @@
     background: #D9B35F;
 }
 
+H1 {
+    margin-top: 4px;
+}
+
 .left-block {
     display: flex;
     align-items: center;

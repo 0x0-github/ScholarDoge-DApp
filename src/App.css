@@ -1,5 +1,6 @@
 .App {
     text-align: center;
+    font-family: 'Anton', sans-serif;
 }
 
 h2 {
@@ -42,6 +43,5 @@ body > #root > div {
 
     .reward-token-select {
         font-size: 12px;
-        font-weight: bold;
     }
 }
