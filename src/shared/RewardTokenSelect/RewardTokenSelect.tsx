@@ -71,8 +71,16 @@ function RewardTokenSelect(props: any) {
 
 const StyledRewardTokenSelect = styled.div<HTMLAttributes<HTMLDivElement>>`
   background-color: transparent;
-  box-shadow: ${({theme}) => theme.shadows.level1};
   border-radius: ${({theme}) => theme.radii.small};
+
+  > div > div:hover, > div > div {
+    box-shadow: 0 0 0 1px ${({theme}) => theme.colors.primary};
+    border-color: ${({theme}) => theme.colors.primary};
+  }
+  > div > div {
+    box-shadow: 0 0 0 1px ${({theme}) => theme.colors.tertiary};
+    border-color: ${({theme}) => theme.colors.tertiary};
+  }
 `;
 
 export default RewardTokenSelect;

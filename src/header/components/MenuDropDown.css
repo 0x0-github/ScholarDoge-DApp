@@ -23,3 +23,18 @@
 .dark-menu > * {
     color: black;
 }
+
+.light-menu > * {
+    color: white;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-img {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}

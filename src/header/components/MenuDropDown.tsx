@@ -9,6 +9,16 @@ import chains from "../../config/constants/chains";
 import useTheme from "../../hooks/useTheme";
 import styled from "styled-components";
 import useTestClaim from "../../hooks/useTestClaim";
+import {
+    AccountBalanceWallet,
+    Casino,
+    Description,
+    Group,
+    MonetizationOn,
+    Poll,
+    Security,
+    SwapHoriz
+} from "@material-ui/icons";
 
 function MenuDropDown() {
     const {t} = useTranslation('common');
@@ -29,24 +39,42 @@ function MenuDropDown() {
             </Dropdown.Toggle>
         </StyledDropDownButton>
 
-        <Dropdown.Menu className={theme.isDark ? 'dark-menu' : 'light-menu'}>
-            <Dropdown.Item className="dropdown-item" href="/tokenomics">{t('header.menu.tokenomics')}</Dropdown.Item>
-            <Dropdown.Item className="dropdown-item" href="/rewards">{t('header.menu.rewards')}</Dropdown.Item>
+        <StyledDropDownMenu className={theme.isDark ? 'dark-menu' : 'light-menu'}>
+            <Dropdown.Item className="dropdown-item" href="/tokenomics">
+                <Poll className={"dropdown-img"}/>
+                {t('header.menu.tokenomics')}
+            </Dropdown.Item>
+            <Dropdown.Item className="dropdown-item" href="/rewards">
+                <MonetizationOn className={"dropdown-img"}/>
+                {t('header.menu.rewards')}
+            </Dropdown.Item>
             <Dropdown.Item className="dropdown-item"
                            href={urls.baseDexURL + '/#/swap?outputCurrency=' + tokenAddr}>
+                <SwapHoriz className={"dropdown-img"}/>
                 {t('header.menu.buy')}
             </Dropdown.Item>
             <Dropdown.Item className="dropdown-item"
                            href={'https://testnet.bscscan.com/address/' + tokenAddr}>
+                <Description className={"dropdown-img"}/>
                 {t('header.menu.contract')}
             </Dropdown.Item>
-            <Dropdown.Item className="dropdown-item" href="#audit" disabled>{t('header.menu.audit')}</Dropdown.Item>
-            <Dropdown.Item className="dropdown-item" href="/lottery" disabled>{t('header.menu.lottery')}</Dropdown.Item>
-            <Dropdown.Item className="dropdown-item" href="/team" disabled>{t('header.menu.team')}</Dropdown.Item>
-            <Dropdown.Item className="dropdown-item" onClick={() => {
-                handleTestClaim()
-            }}>{t('header.menu.claim_testnet')}</Dropdown.Item>
-        </Dropdown.Menu>
+            <Dropdown.Item className="dropdown-item" href="#audit" disabled>
+                <Security className={"dropdown-img"}/>
+                {t('header.menu.audit')}
+            </Dropdown.Item>
+            <Dropdown.Item className="dropdown-item" href="/lottery" disabled>
+                <Casino className={"dropdown-img"}/>
+                {t('header.menu.lottery')}
+            </Dropdown.Item>
+            <Dropdown.Item className="dropdown-item" href="/team" disabled>
+                <Group className={"dropdown-img"}/>
+                {t('header.menu.team')}
+            </Dropdown.Item>
+            <Dropdown.Item className="dropdown-item" onClick={() => {handleTestClaim()}}>
+                <AccountBalanceWallet className={"dropdown-img"}/>
+                {t('header.menu.claim_testnet')}
+            </Dropdown.Item>
+        </StyledDropDownMenu>
     </Dropdown>);
 }
 
@@ -58,6 +86,15 @@ const StyledDropDownButton = styled.div`
     box-shadow: none !important;
     opacity: 0.65;
 }
+`;
+
+const StyledDropDownMenu = styled(Dropdown.Menu)`
+  .dropdown-item:hover {
+    background: ${({theme}) => theme.colors.tertiary} !important;
+    color: ${({theme}) => theme.colors.accent} !important;
+    box-shadow: none !important;
+    opacity: 0.65;
+  }
 `;
 
 export default MenuDropDown;
