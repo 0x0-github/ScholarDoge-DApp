@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
-import App from './App';
+import App from './ui/App';
 import reportWebVitals from './reportWebVitals';
 import {I18nextProvider} from "react-i18next";
 import i18next from "i18next";
 import common_fr from "./translations/fr/common.json";
 import common_en from "./translations/en/common.json";
-import Providers from "./Providers";
+import Providers from "./ui/Providers";
 
 i18next.init({
     interpolation: {escapeValue: false},

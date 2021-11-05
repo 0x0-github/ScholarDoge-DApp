@@ -1,10 +1,10 @@
 import {DefaultTheme} from "styled-components";
-import {dark as darkAlert} from "../shared/Alert/theme";
-import {dark as darkCard} from "../shared/Card/theme";
-import {dark as darkRadio} from "../shared/Radio/theme";
-import {dark as darkToggle} from "../shared/Toggle/theme";
-import {dark as darkModal} from "../shared/widgets/Modal/theme";
-import {dark as darkTooltip} from "../shared/Tooltip/theme";
+import {dark as darkAlert} from "../ui/shared/Alert/theme";
+import {dark as darkCard} from "../ui/shared/Card/theme";
+import {dark as darkRadio} from "../ui/shared/Radio/theme";
+import {dark as darkToggle} from "../ui/shared/Toggle/theme";
+import {dark as darkModal} from "../ui/shared/widgets/Modal/theme";
+import {dark as darkTooltip} from "../ui/shared/Tooltip/theme";
 import base from "./base";
 import {darkColors} from "./colors";
 

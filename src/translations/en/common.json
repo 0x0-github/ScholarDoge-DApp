@@ -1,9 +1,20 @@
 {
+  "common": {
+    "copied": "Copied",
+    "copy_address": "Copy address",
+    "provider_error": "Provider Error",
+    "provider_not_found": "No provider was found",
+    "authorization_error": "Authorization Error",
+    "please_authorize": "Please authorize to access your account",
+    "connector_not_found": "Unable to find connector",
+    "wrong_connector_config": "The connector config is wrong"
+  },
   "header": {
     "title": "ScholarDoge",
     "menu": {
       "tokenomics": "Tokenomics",
       "rewards": "Rewards",
+      "project_wallets": "Project wallets",
       "buy": "Buy $SDOGE",
       "contract": "Contract",
       "audit": "Audit",
@@ -58,12 +69,6 @@
       "title": "Total",
       "holders": "Holders: {{holders}}",
       "total": "Distributed: {{total}} {{token}}"
-    },
-    "project_wallet": {
-      "title": "{{wallet}} wallet",
-      "address": "Wallet address: {{address}}",
-      "amount_bnb": "BNB amount: {{amount}}",
-      "amount_sdoge": "$SDOGE amount: {{amount}}"
     }
   },
   "tokenomics": {
@@ -105,6 +110,34 @@
       "dividend_tracker": "Dividend tracker: {{value}}",
       "router": "Dex router: {{value}}",
       "pair": "Dex pair: {{value}}"
+    }
+  },
+  "project_wallets": {
+    "project_wallet": {
+      "title": "{{wallet}} wallet",
+      "treasury": "Treasury",
+      "marketing": "Marketing",
+      "foundation": "Foundation",
+      "timelock": "Team timelock",
+      "address": "Wallet address: {{address}}",
+      "amount_bnb": "BNB amount: {{amount}}",
+      "amount_sdoge": "$SDOGE amount: {{amount}}"
+    },
+    "transaction_modal": {
+      "title": "Last transactions",
+      "index": "Index",
+      "to": "To",
+      "value": "Value",
+      "type": "Type",
+      "confirmations": "Confirmations",
+      "executed": "Executed",
+      "actions": "Actions"
+    },
+    "owner_modal": {
+      "title": "Owners",
+      "index": "Index",
+      "address": "Address",
+      "actions": "Actions"
     }
   }
 }

@@ -1,7 +1,11 @@
 import web3 from './web3';
 import {
-    getBEP20TokenContract, getDexFactoryContract, getDexPairContract, getScholarDogeDividendTrackerContract,
-    getScholarDogeTokenContract, getWBNBBUSDPairContract,
+    getBEP20TokenContract,
+    getDexFactoryContract,
+    getDexPairContract, getFoundationContract, getMarketingContract,
+    getScholarDogeDividendTrackerContract,
+    getScholarDogeTokenContract, getTreasuryContract,
+    getWBNBBUSDPairContract,
     getWBNBDexPairContract
 } from "./contractHelpers";
 import {UserDividendsInfo} from "../models/UserDividendsInfo";
@@ -15,6 +19,12 @@ import {TokenStatsInfo} from "../models/TokenStatsInfo";
 import {TokenConstraintsInfo} from "../models/TokenConstraintsInfo";
 import {TokenDependenciesInfo} from "../models/TokenDependenciesInfo";
 import {RewardTokenInfo} from "../models/RewardTokenInfo";
+import {getFoundationAddress, getMarketingAddress, getTeamTimelockAddress, getTreasuryAddress} from "./addressHelpers";
+import {MultisigOwnerInfo} from "../models/MultisigOwnerInfo";
+import {MultisigTransactionInfo} from "../models/MultisigTransactionInfo";
+import {useWeb3React} from "@web3-react/core";
+import {useScholarDogeTreasury} from "../hooks/useContract";
+import {useCallback} from "react";
 
 // TODO : Up here if updates
 const HOUR_SECONDS = 3600;
@@ -60,23 +70,19 @@ export const getProjectWalletInfo = async (account: string, rewardToken: string 
 }
 
 export const getTreasuryWalletInfo = async () => {
-    // @ts-ignore
-    return getProjectWalletInfo(contracts.treasuryWallet[chainId]);
+    return getProjectWalletInfo(getTreasuryAddress());
 }
 
 export const getMarketingWalletInfo = async () => {
-    // @ts-ignore
-    return getProjectWalletInfo(contracts.marketingWallet[chainId]);
+    return getProjectWalletInfo(getMarketingAddress());
 }
 
 export const getFoundationWalletInfo = async () => {
-    // @ts-ignore
-    return getProjectWalletInfo(contracts.foundationWallet[chainId]);
+    return getProjectWalletInfo(getFoundationAddress());
 }
 
 export const getTeamTimelockWalletInfo = async () => {
-    // @ts-ignore
-    return getProjectWalletInfo(contracts.teamTimelock[chainId]);
+    return getProjectWalletInfo(getTeamTimelockAddress());
 }
 
 export const getEstimatedRewards = async (account: string, rewardToken: string = defaultReward,
@@ -251,4 +257,163 @@ export const getCurrentRewardToken = async () => {
         await rewardTokenContract.methods.symbol().call(),
         await rewardTokenContract.methods.decimals().call(),
     );
+}
+
+export const getTreasuryTransaction = async (txIndex: number) => {
+    return await getTreasuryContract().methods.getTransaction(txIndex).call();
+}
+
+export const getTreasuryTransactionCount = async () => {
+    return await getTreasuryContract().methods.getTransactionCount().call();
+}
+
+export const getTreasuryTransactionIsConfirmedBy = async (txIndex: number, ownerAddress: number) => {
+    return await getTreasuryContract().methods.isConfirmed(txIndex, ownerAddress).call();
+}
+
+export const getTreasuryIsOwner = async (ownerAddress: string) => {
+    return await getTreasuryContract().methods.isOwner(ownerAddress).call();
+}
+
+export const getTreasuryNumConfirmationsRequired = async () => {
+    return await getTreasuryContract().methods.numConfirmationsRequired().call();
+}
+
+export const getTreasuryOwnerCount = async () => {
+    return await getTreasuryContract().methods.getOwnerCount().call();
+}
+
+export const getTreasuryOwners = async () => {
+    const result = [];
+    const ownerCount = await getTreasuryOwnerCount();
+    const treasury = getTreasuryContract();
+
+    for (let i = 0; i < ownerCount; ++i) {
+        result.push(new MultisigOwnerInfo(i, await treasury.methods.owners(i).call()));
+    }
+
+    return result;
+}
+
+export const getTreasuryTransactions = async (fetchedFromEnd: number = 10) => {
+    const txMaxIndex = await getTreasuryTransactionCount() - 1;
+    const transactions = [];
+    const treasury = getTreasuryContract();
+    const startIndex = (txMaxIndex - fetchedFromEnd) > 0 ?
+        (txMaxIndex - fetchedFromEnd) : 0
+
+    for (let i = startIndex; i < txMaxIndex; ++i) {
+        const tx = await treasury.methods.transactions(i).call();
+        const type = (tx.value === 0) ? 'Ownership' : ((tx.isBnb) ? 'BNB' : '$SDOGE');
+
+        transactions.push(new MultisigTransactionInfo(i, tx.to, tx.value, type, tx.numConfirmations, tx.executed));
+    }
+
+    return transactions;
+}
+
+export const getMarketingTransaction = async (txIndex: number) => {
+    return await getMarketingContract().methods.getTransaction(txIndex).call();
+}
+
+export const getMarketingTransactionCount = async () => {
+    return await getMarketingContract().methods.getTransactionCount().call();
+}
+
+export const getMarketingTransactionIsConfirmedBy = async (txIndex: number, ownerAddress: number) => {
+    return await getMarketingContract().methods.isConfirmed(txIndex, ownerAddress).call();
+}
+
+export const getMarketingIsOwner = async (ownerAddress: string) => {
+    return await getMarketingContract().methods.isOwner(ownerAddress).call();
+}
+
+export const getMarketingNumConfirmationsRequired = async () => {
+    return await getMarketingContract().methods.numConfirmationsRequired().call();
+}
+
+export const getMarketingOwnerCount = async () => {
+    return await getMarketingContract().methods.getOwnerCount().call();
+}
+
+export const getMarketingOwners = async () => {
+    const result = [];
+    const ownerCount = await getMarketingOwnerCount();
+    const marketing = getMarketingContract();
+
+    for (let i = 0; i < ownerCount; ++i) {
+        result.push(new MultisigOwnerInfo(i, await marketing.methods.owners(i).call()));
+    }
+
+    return result;
+}
+
+export const getMarketingTransactions = async (fetchedFromEnd: number = 10) => {
+    const txMaxIndex = await getMarketingTransactionCount() - 1;
+    const transactions = [];
+    const marketing = getMarketingContract();
+    const startIndex = (txMaxIndex - fetchedFromEnd) > 0 ?
+        (txMaxIndex - fetchedFromEnd) : 0
+
+    for (let i = startIndex; i < txMaxIndex; ++i) {
+        const tx = await marketing.methods.transactions(i).call();
+        const type = (tx.value === 0) ? 'Ownership' : ((tx.isBnb) ? 'BNB' : '$SDOGE');
+
+        transactions.push(new MultisigTransactionInfo(i, tx.to, tx.value, type, tx.numConfirmations, tx.executed));
+    }
+
+    return transactions;
+}
+
+export const getFoundationTransaction = async (txIndex: number) => {
+    return await getFoundationContract().methods.getTransaction(txIndex).call();
+}
+
+export const getFoundationTransactionCount = async () => {
+    return await getFoundationContract().methods.getTransactionCount().call();
+}
+
+export const getFoundationTransactionIsConfirmedBy = async (txIndex: number, ownerAddress: number) => {
+    return await getFoundationContract().methods.isConfirmed(txIndex, ownerAddress).call();
+}
+
+export const getFoundationIsOwner = async (ownerAddress: string) => {
+    return await getFoundationContract().methods.isOwner(ownerAddress).call();
+}
+
+export const getFoundationNumConfirmationsRequired = async () => {
+    return await getFoundationContract().methods.numConfirmationsRequired().call();
+}
+
+export const getFoundationOwnerCount = async () => {
+    return await getFoundationContract().methods.getOwnerCount().call();
+}
+
+export const getFoundationOwners = async () => {
+    const result = [];
+    const ownerCount = await getFoundationOwnerCount();
+    const foundation = getFoundationContract();
+
+    for (let i = 0; i < ownerCount; ++i) {
+        result.push(new MultisigOwnerInfo(i, await foundation.methods.owners(i).call()));
+    }
+
+    return result;
+}
+
+export const getFoundationTransactions = async (fetchedFromEnd: number = 10) => {
+    const txMaxIndex = await getFoundationTransactionCount() - 1;
+    const transactions = [];
+    const foundation = getFoundationContract();
+    const startIndex = (txMaxIndex - fetchedFromEnd) > 0 ?
+        (txMaxIndex - fetchedFromEnd) : 0
+
+    for (let i = startIndex; i < txMaxIndex; ++i) {
+        const tx = await foundation.methods.transactions(i).call();
+        const type = (tx.value === 0) ? 'Ownership' : ((tx.isBnb) ? 'BNB' : '$SDOGE');
+
+        transactions.push(new MultisigTransactionInfo(i, tx.to, tx.value, type, tx.numConfirmations, tx.executed));
+    }
+
+    return transactions;
 }

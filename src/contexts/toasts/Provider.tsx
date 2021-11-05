@@ -1,6 +1,6 @@
 import React, {createContext, ReactNode, useCallback, useState} from 'react';
 import {kebabCase} from 'lodash';
-import {Toast, toastTypes} from '../../shared/widgets/Toast';
+import {Toast, toastTypes} from '../../ui/shared/widgets/Toast';
 import {ToastContextApi} from './types';
 
 export const ToastsContext = createContext<ToastContextApi | null>(null);

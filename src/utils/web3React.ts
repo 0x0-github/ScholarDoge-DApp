@@ -4,7 +4,7 @@ import {BscConnector} from '@binance-chain/bsc-connector';
 import Web3 from 'web3';
 import getNodeUrl from './getRpcUrl';
 import chains from "../config/constants/chains";
-import {ConnectorNames} from "../shared/widgets/WalletModal";
+import {ConnectorNames} from "../ui/shared/widgets/WalletModal";
 import {IRPCMap} from "@walletconnect/types";
 
 const POLLING_INTERVAL = 12000;

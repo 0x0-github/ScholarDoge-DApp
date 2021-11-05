@@ -1,9 +1,9 @@
-import {AlertTheme} from "../shared/Alert/types";
-import {CardTheme} from "../shared/Card/types";
-import {RadioTheme} from "../shared/Radio/types";
-import {ToggleTheme} from "../shared/Toggle/types";
-import {TooltipTheme} from "../shared/Tooltip/types";
-import {ModalTheme} from "../shared/widgets/Modal/types";
+import {AlertTheme} from "../ui/shared/Alert/types";
+import {CardTheme} from "../ui/shared/Card/types";
+import {RadioTheme} from "../ui/shared/Radio/types";
+import {ToggleTheme} from "../ui/shared/Toggle/types";
+import {TooltipTheme} from "../ui/shared/Tooltip/types";
+import {ModalTheme} from "../ui/shared/widgets/Modal/types";
 import {Breakpoints, Colors, MediaQueries, Radii, Shadows, Spacing, ZIndices} from "./types";
 
 export interface ScholarDogeTheme {

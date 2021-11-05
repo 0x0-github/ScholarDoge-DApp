@@ -9,7 +9,7 @@ import {
     UserRejectedRequestError as UserRejectedRequestErrorWalletConnect,
     WalletConnectConnector,
 } from '@web3-react/walletconnect-connector';
-import {connectorLocalStorageKey, ConnectorNames} from '../shared/widgets/WalletModal';
+import {connectorLocalStorageKey, ConnectorNames} from '../ui/shared/widgets/WalletModal';
 import {connectorsByName} from '../utils/web3React';
 import {setupNetwork} from '../utils/wallet';
 import useToast from './useToast';
@@ -37,7 +37,7 @@ const useAuth = () => {
                         window.localStorage.removeItem(connectorLocalStorageKey)
 
                         if (error instanceof NoEthereumProviderError || error instanceof NoBscProviderError) {
-                            toast?.toastError(t('Provider Error'), t('No provider was found'));
+                            toast?.toastError(t('common.provider_error'), t('common.provider_not_found'));
                         } else if (
                             error instanceof UserRejectedRequestErrorInjected ||
                             error instanceof UserRejectedRequestErrorWalletConnect
@@ -48,14 +48,14 @@ const useAuth = () => {
                                 walletConnector.walletConnectProvider = null;
                             }
 
-                            toast?.toastError(t('Authorization Error'), t('Please authorize to access your account'));
+                            toast?.toastError(t('common.authorization_error'), t('common.please_authorize'));
                         } else {
                             toast?.toastError(error.name, error.message);
                         }
                     }
                 })
             } else {
-                toast?.toastError(t('Unable to find connector'), t('The connector config is wrong'));
+                toast?.toastError(t('common.connector_not_found'), t('common.wrong_connector_config'));
             }
         },
         [t, activate, toast],

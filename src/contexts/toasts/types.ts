@@ -1,4 +1,4 @@
-import {Toast} from '../../shared/widgets/Toast';
+import {Toast} from '../../ui/shared/widgets/Toast';
 
 type ToastSignature = (title: Toast['title'], description?: Toast['description']) => void;
 

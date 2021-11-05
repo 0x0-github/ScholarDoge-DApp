@@ -1,0 +1,54 @@
+.App {
+    text-align: center;
+}
+
+Table {
+    font-size: 14px;
+}
+
+* {
+    font-family: 'Anton', sans-serif !important;
+}
+
+h2 {
+    margin-bottom: 16px;
+}
+
+body > #root > div {
+    height: 100vh;
+}
+
+.card {
+    padding: 16px;
+}
+
+.card-content {
+    padding-top: 4px;
+}
+
+@media only screen and (min-device-width: 300px) and (max-device-width: 800px) {
+    h2 {
+        font-size: 17px;
+    }
+
+    p, a {
+        font-size: 12px;
+    }
+
+    #login-buttons > * {
+        font-size: 11px;
+        padding: 8px;
+    }
+
+    .card {
+        padding: 8px;
+    }
+
+    .card-content {
+        padding-top: 0;
+    }
+
+    .reward-token-select {
+        font-size: 12px;
+    }
+}

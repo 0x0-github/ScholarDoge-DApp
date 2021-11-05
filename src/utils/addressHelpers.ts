@@ -18,6 +18,22 @@ export const getScholarDogeDividendTrackerAddress = () => {
     return getAddress(contracts.scholarDogeDividendTracker);
 }
 
+export const getTeamTimelockAddress = () => {
+    return getAddress(contracts.teamTimelock);
+}
+
+export const getTreasuryAddress = () => {
+    return getAddress(contracts.treasuryWallet);
+}
+
+export const getMarketingAddress = () => {
+    return getAddress(contracts.marketingWallet);
+}
+
+export const getFoundationAddress = () => {
+    return getAddress(contracts.foundationWallet);
+}
+
 export const getDexFactoryAddress = () => {
     return getAddress(contracts.dexFactory);
 }

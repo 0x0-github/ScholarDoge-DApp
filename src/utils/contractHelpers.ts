@@ -9,13 +9,14 @@ import {
     getScholarDogeDividendTrackerAddress,
     getScholarDogeTestDispatcherAddress,
     getWBNBDexPairAddress,
-    getDexFactoryAddress, getWBNBBUSDPairAddress
+    getDexFactoryAddress, getWBNBBUSDPairAddress, getMarketingAddress, getTreasuryAddress, getFoundationAddress
 } from './addressHelpers';
 
 // ABI
 import scholarDogeTokenAbi from '../config/abi/ScholarDogeToken.json';
 import scholarDogeDividendTrackerAbi from '../config/abi/ScholarDogeDividendTracker.json';
 import scholarDogeTestDispatcherAbi from '../config/abi/ScholarDogeTestDispatcher.json';
+import scholarDogeMultisigAbi from '../config/abi/ScholarDogeMultisig.json';
 import dexPairAbi from '../config/abi/IPancakePair.json';
 import bep20Abi from '../config/abi/BEP20.json';
 import iPancakeFactoryAbi from '../config/abi/IPancakeFactory.json';
@@ -73,4 +74,16 @@ export const getBEP20TokenContract = (web3?: Web3, address: string = '') => {
 
 export const getDexFactoryContract = (web3?: Web3) => {
     return getContract(iPancakeFactoryAbi, getDexFactoryAddress(), web3);
+}
+
+export const getMarketingContract = (web3?: Web3) => {
+    return getContract(scholarDogeMultisigAbi, getMarketingAddress(), web3);
+}
+
+export const getTreasuryContract = (web3?: Web3) => {
+    return getContract(scholarDogeMultisigAbi, getTreasuryAddress(), web3);
+}
+
+export const getFoundationContract = (web3?: Web3) => {
+    return getContract(scholarDogeMultisigAbi, getFoundationAddress(), web3);
 }
